@@ -28,7 +28,7 @@ router.get(
       const project = await Project.findOne({
         user: req.user.id,
         _id: req.params.id
-      });
+      }).populate("sections.tasks");
 
       return res.json(project);
     } catch (err) {
@@ -62,6 +62,32 @@ router.post(
   }
 );
 
+// update project
+router.put(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const { errors, isValid } = validateProject(req.body);
+    if (!isValid) return res.status(400).json(errors);
+
+    const { name, description } = req.body;
+
+    try {
+      const project = await Project.findByIdAndUpdate(
+        req.params.id,
+        {
+          $set: { name, description }
+        },
+        { new: true }
+      );
+
+      return res.json(project);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  }
+);
+
 router.post(
   "/:id/sections",
   passport.authenticate("jwt", { session: false }),
@@ -72,19 +98,14 @@ router.post(
     const { name } = req.body;
 
     try {
-      const project = await Project.findOne({
-        user: req.user.id,
-        _id: req.params.id
-      });
-
-      if (project == null)
-        return res.status(404).json({ noProjectFound: "No project found" });
-
-      const section = { name };
-
-      project.sections.push(section);
-
-      await project.save();
+      const project = await Project.findOneAndUpdate(
+        {
+          user: req.user.id,
+          _id: req.params.id
+        },
+        { $push: { sections: { name } } },
+        { new: true }
+      );
 
       return res.json(project);
     } catch (err) {
@@ -94,7 +115,7 @@ router.post(
 );
 
 //update section
-router.post(
+router.put(
   "/:id/sections/:sectionId",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
@@ -127,24 +148,61 @@ router.post(
   }
 );
 
+//create new task
 router.post(
-  "/:id/sections/:sectionId/task/:taskId",
+  "/:id/sections/:sectionId/tasks",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const { id, sectionId } = req.params;
+    const { name, description, dueDate } = req.body;
+    try {
+      const task = new Task({ name, description, dueDate });
+      await task.save();
+
+      const project = await Project.findOneAndUpdate(
+        {
+          _id: id,
+          user: req.user.id,
+          "sections._id": sectionId
+        },
+        { $push: { "sections.$.tasks": { _id: task._id } } },
+        { new: true }
+      );
+
+      return res.json({ project, task });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
+  }
+);
+
+// update
+router.put(
+  "/:id/sections/:sectionId/tasks/:taskId",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     const { id, sectionId, taskId } = req.params;
     const { name, description, dueDate } = req.body;
     try {
       // get project with id and user id
-      const project = await Project.findOne({ _id: id, user: req.user.id });
+      const project = await Project.findByIdAndUpdate({
+        _id: id,
+        user: req.user.id
+      });
       if (project == null)
-        return res.status(404).json({ noProjectFound: "No project found" });
+        return res.status(404).json({ noProjectFound: "No project is found" });
 
-      const section = project.sections.find(s => s._id === sectionId);
-      if (section == null)
-        return res.status(404).json({ noSectionFound: "No section found" });
+      const updateObj = {};
+      if (name) updateObj.name = name;
+      if (description) updateObj.description = description;
+      if (dueDate) updateObj.dueDate = dueDate;
 
-      const task = new Task({ name, description, dueDate });
-      await task.save();
+      const task = await Task.findByIdAndUpdate(
+        taskId,
+        { $set: updateObj },
+        { new: true }
+      );
 
       return res.json(task);
     } catch (err) {
