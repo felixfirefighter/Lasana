@@ -1,13 +1,13 @@
 {
-  "name": "Lasana",
+  "name": "lasana",
   "version": "1.0.0",
-  "description": "",
+  "description": "Keep track of your task",
   "main": "index.js",
   "scripts": {
     "server": "nodemon index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Yoong Ti Lee",
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^1.17.5"
@@ -21,5 +21,13 @@
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "validator": "^10.4.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leeyt54/Lasana.git"
+  },
+  "bugs": {
+    "url": "https://github.com/leeyt54/Lasana/issues"
+  },
+  "homepage": "https://github.com/leeyt54/Lasana#readme"
 }
