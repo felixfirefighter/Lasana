@@ -126,7 +126,7 @@ router.post(
 
       return res.json(project);
     } catch (err) {
-      return res.status(500).json(err);
+      return res.status(400).json(err);
     }
   }
 );
