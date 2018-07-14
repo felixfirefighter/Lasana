@@ -19,6 +19,7 @@ router.put(
     try {
       const project = await Project.findOneAndUpdate(
         {
+          user: req.user.id,
           "sections._id": id
         },
         {
@@ -45,6 +46,7 @@ router.delete(
     try {
       await Project.findOneAndUpdate(
         {
+          user: req.user.id,
           "sections._id": id
         },
         {
@@ -72,6 +74,7 @@ router.post(
 
       const project = await Project.findOneAndUpdate(
         {
+          user: req.user.id,
           "sections._id": id
         },
         { $push: { "sections.$.tasks": { _id: task._id } } },

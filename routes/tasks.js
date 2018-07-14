@@ -30,6 +30,24 @@ router.put(
   }
 );
 
+router.put(
+  "/:id/updateStatus",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const { id } = req.params;
+
+    try {
+      const task = await Task.findById(id);
+      task.isCompleted = !task.isCompleted;
+      await task.save();
+
+      return res.json(task);
+    } catch (err) {
+      return res.status(500).json(err);
+    }
+  }
+);
+
 router.delete(
   "/:id",
   passport.authenticate("jwt", { session: false }),
@@ -38,17 +56,39 @@ router.delete(
 
     try {
       await Project.findOneAndUpdate(
-        { "sections.$.tasks._id": id },
+        { "sections.tasks._id": id },
         { $pull: { "sections.$.tasks._id": id } }
       );
 
       await Task.findOneAndRemove({
-        _id: taskId
+        _id: id
       });
 
       return res.json({ success: true });
     } catch (err) {
+      console.log(err);
       return res.status(400).json({ error: "Unable to delete task" });
+    }
+  }
+);
+
+router.post(
+  "/:id/subtasks",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const { id } = req.params;
+    const { name } = req.body;
+
+    try {
+      const task = await Task.findByIdAndUpdate(
+        id,
+        { $push: { subtasks: { name } } },
+        { new: true }
+      );
+
+      return res.json(task);
+    } catch (err) {
+      return res.status(400).json({ err: "Unable to add subtask" });
     }
   }
 );

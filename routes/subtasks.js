@@ -4,26 +4,22 @@ const passport = require("passport");
 
 const Task = require("../models/Task");
 
-router.get(
-  "/:id/subtasks",
-  passport.authenticate("jwt", { session: false }),
-  async (req, res) => {}
-);
-
-router.post(
-  "/:id/subtasks",
+router.put(
+  "/:id",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {}
 );
 
 router.put(
-  "/:id/subtasks/:subtaskId",
+  "/:id/updateStatus",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {}
 );
 
 router.delete(
-  "/:id/subtasks/:subtaskId",
+  "/subtasks/:subtaskId",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {}
 );
+
+module.exports = router;
