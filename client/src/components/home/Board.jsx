@@ -1,11 +1,17 @@
 import React, { Component } from "react";
 
-export class Board extends Component {
+import { Container } from "semantic-ui-react";
+
+import NavContainer from "../layout/NavContainer";
+
+class Board extends Component {
   render() {
     return (
-      <div>
-        <h1>Board Game</h1>
-      </div>
+      <NavContainer visible>
+        <Container fluid>
+          <h1>Hello Board</h1>
+        </Container>
+      </NavContainer>
     );
   }
 }
