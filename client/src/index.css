@@ -2,4 +2,20 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  height: 100vh;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.full-height {
+  max-height: 100vh;
+  height: 100vh;
+}
+
+.ui.form .field {
+  margin-top: 2rem;
 }
