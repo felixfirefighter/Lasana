@@ -29,7 +29,7 @@ router.post("/register", async (req, res) => {
 
     return res.json({ newUser });
   } catch (err) {
-    console.log(err);
+    return res.status(400).json({ error: "Unable to register user" });
   }
 });
 
@@ -54,7 +54,7 @@ router.post("/login", async (req, res) => {
 
     return res.json({ token: `Bearer ${token}` });
   } catch (err) {
-    console.log(err);
+    return res.status(400).json({ error: "Unable to login" });
   }
 });
 
