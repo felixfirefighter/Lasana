@@ -8,7 +8,7 @@ class Board extends Component {
   renderContent = () => {
     const { project } = this.props;
 
-    return project == null ? (
+    return Object.keys(project.project).length === 0 ? (
       <Dimmer active inverted>
         <Loader inverted>Loading</Loader>
       </Dimmer>

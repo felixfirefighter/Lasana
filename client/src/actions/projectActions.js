@@ -6,6 +6,7 @@ import {
   DELETE_PROJECT,
   GET_PROJECT,
   GET_PROJECTS,
+  CLEAR_PROJECT,
   GET_ERRORS
 } from "./types";
 
@@ -26,6 +27,10 @@ export const getProjects = () => async dispatch => {
 
 export const getProject = id => async dispatch => {
   try {
+    dispatch({
+      type: CLEAR_PROJECT
+    });
+
     const res = await axios.get(`/api/projects/${id}`);
     dispatch({
       type: GET_PROJECT,

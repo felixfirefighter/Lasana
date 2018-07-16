@@ -3,7 +3,8 @@ import {
   UPDATE_PROJECT,
   DELETE_PROJECT,
   GET_PROJECT,
-  GET_PROJECTS
+  GET_PROJECTS,
+  CLEAR_PROJECT
 } from "../actions/types";
 
 const initialState = {
@@ -55,6 +56,11 @@ export default function(state = initialState, action) {
           ...state.projects.slice(0, deleteProjectIndex),
           ...state.projects.slice(deleteProjectIndex + 1)
         ]
+      };
+    case CLEAR_PROJECT:
+      return {
+        ...state,
+        project: {}
       };
     default:
       return state;
