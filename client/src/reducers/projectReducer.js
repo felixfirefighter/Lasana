@@ -48,7 +48,7 @@ export default function(state = initialState, action) {
     case DELETE_PROJECT:
       return {
         ...state,
-        project: action.payload,
+        project: {},
         projects: [
           ...state.projects.slice(0, index),
           ...state.projects.slice(index + 1)

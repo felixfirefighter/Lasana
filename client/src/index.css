@@ -5,9 +5,27 @@ body {
   height: 100vh;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
+.m-0 {
+  margin: 0 !important;
+}
+
+.bg-inverted {
+  background-color: rgb(27, 28, 29);
+}
+
 .center {
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+.space-between {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
 }
 
