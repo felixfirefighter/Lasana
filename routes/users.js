@@ -38,7 +38,6 @@ router.post("/login", async (req, res) => {
   if (!isValid) return res.status(400).json(errors);
 
   const { email, password } = req.body;
-
   try {
     const user = await User.findOne({ email });
     if (!user) return res.status(400).json({ email: "User not found" });
@@ -47,13 +46,13 @@ router.post("/login", async (req, res) => {
     if (!isMatch)
       return res.status(400).json({ password: "Password incorrect" });
 
-    const { id, email } = user;
-    const payload = { id, email };
+    const payload = { id: user.id, email: user.email };
 
     const token = await jwt.sign(payload, keys.secretOrKey);
 
     return res.json({ token: `Bearer ${token}` });
   } catch (err) {
+    console.log(err);
     return res.status(400).json({ error: "Unable to login" });
   }
 });
