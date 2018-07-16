@@ -18,6 +18,7 @@ import { getProjects } from "../../actions/projectActions";
 import { showAddProjectModal } from "../../actions/navActions";
 
 import AddProjectModal from "../modals/AddProjectModal";
+import NavProjectListItem from "./NavProjectListItem";
 
 const actions = {
   logout,
@@ -27,8 +28,7 @@ const actions = {
 
 class PushableSidebar extends Component {
   state = {
-    sidebar: true,
-    addProjectModal: false
+    sidebar: true
   };
 
   componentDidMount() {
@@ -48,7 +48,7 @@ class PushableSidebar extends Component {
   };
 
   render() {
-    const { auth, children, showAddProjectModal } = this.props;
+    const { auth, children, showAddProjectModal, project } = this.props;
 
     return (
       <div>
@@ -88,7 +88,9 @@ class PushableSidebar extends Component {
                   onClick={showAddProjectModal}
                 />
               </div>
-              <Menu.Menu />
+              {project.projects && (
+                <NavProjectListItem projects={project.projects} />
+              )}
             </Menu.Item>
           </Sidebar>
 
@@ -122,7 +124,8 @@ class PushableSidebar extends Component {
 }
 
 const mapState = state => ({
-  auth: state.auth
+  auth: state.auth,
+  project: state.project
 });
 
 export default connect(
