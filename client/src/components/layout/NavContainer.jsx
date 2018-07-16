@@ -43,12 +43,13 @@ const PushableSidebar = ({ children, visible, logout }) => {
 
       <Menu>
         <Menu.Menu position="right">
-          <Dropdown
-            trigger={trigger}
-            options={options}
-            icon={null}
-            onChange={this.handleChange}
-          />
+          <Dropdown item text="Language">
+            <Dropdown.Menu>
+              <Dropdown.Item>English</Dropdown.Item>
+              <Dropdown.Item>Russian</Dropdown.Item>
+              <Dropdown.Item>Spanish</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
         </Menu.Menu>
       </Menu>
       <Sidebar.Pusher>{children}</Sidebar.Pusher>

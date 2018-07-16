@@ -8,7 +8,7 @@ class Board extends Component {
   render() {
     return (
       <NavContainer visible>
-        <Container fluid>
+        <Container fluid className="full-height">
           <h1>Hello Board</h1>
         </Container>
       </NavContainer>

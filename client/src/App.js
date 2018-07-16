@@ -8,6 +8,7 @@ import setAuthToken from "./utils/setAuthToken";
 import { setCurrentUser } from "./actions/authActions";
 
 import PrivateRoute from "./components/common/PrivateRoute";
+import Home from "./components/home/Home";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import NotFound from "./components/common/NotFound";
@@ -28,6 +29,7 @@ class App extends Component {
         <Router>
           <div>
             <Switch>
+              <Route exact path="/" component={Home} />
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
               <PrivateRoute exact path="/home/board" component={Board} />
