@@ -1,23 +1,76 @@
-import React from "react";
-import { Button, Header, Image, Modal } from "semantic-ui-react";
+import React, { Component } from "react";
+import { Button, Header, Image, Modal, Form, Label } from "semantic-ui-react";
 
-const AddProjectModal = ({ open, close }) => {
-  return (
-    <Modal open={open} onClose={close}>
-      <Modal.Header>Select a Photo</Modal.Header>
-      <Modal.Content image>
-        <Image wrapped size="medium" src="/images/avatar/large/rachel.png" />
-        <Modal.Description>
-          <Header>Default Profile Image</Header>
-          <p>
-            We've found the following gravatar image associated with your e-mail
-            address.
-          </p>
-          <p>Is it okay to use this photo?</p>
-        </Modal.Description>
-      </Modal.Content>
-    </Modal>
-  );
+import { connect } from "react-redux";
+import { addProject } from "../../actions/projectActions";
+
+const actions = {
+  addProject
 };
 
-export default AddProjectModal;
+class AddProjectModal extends Component {
+  state = {
+    name: "",
+    description: "",
+    loading: false,
+    errors: {}
+  };
+
+  handleChange = (e, { name, value }) => {
+    this.setState({ [name]: value });
+  };
+
+  handleSubmit = () => {
+    this.setState({ loading: true });
+
+    const { name, description } = this.state;
+    this.props.addProject({ name, description });
+  };
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors, loading: false });
+    }
+  }
+
+  render() {
+    const { open, close, errors } = this.props;
+    const { loading } = this.state;
+
+    return (
+      <Modal open={open} onClose={close} size="tiny" centered={false}>
+        <Modal.Header as="h2">New Project</Modal.Header>
+        <Modal.Content>
+          <Form onSubmit={this.handleSubmit}>
+            <Form.Input
+              label="Project Name"
+              name="name"
+              type="text"
+              onChange={this.handleChange}
+              error={errors.name != null}
+            />
+            {errors.name != null && <Label content={errors.name} color="red" />}
+            <Form.TextArea
+              label="Description"
+              name="description"
+              onChange={this.handleChange}
+            />
+
+            <Form.Field style={{ textAlign: "right" }}>
+              <Button content="Create Project" primary loading={loading} />
+            </Form.Field>
+          </Form>
+        </Modal.Content>
+      </Modal>
+    );
+  }
+}
+
+const mapState = state => ({
+  errors: state.errors
+});
+
+export default connect(
+  mapState,
+  actions
+)(AddProjectModal);

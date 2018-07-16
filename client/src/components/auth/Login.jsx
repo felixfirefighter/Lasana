@@ -33,9 +33,6 @@ class Login extends Component {
 
   render() {
     const { errors, loading } = this.state;
-
-    console.log(errors);
-
     return (
       <FullContainer>
         <div>
