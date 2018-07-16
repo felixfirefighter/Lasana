@@ -15,12 +15,14 @@ import { connect } from "react-redux";
 
 import { logout } from "../../actions/authActions";
 import { getProjects } from "../../actions/projectActions";
+import { showAddProjectModal } from "../../actions/navActions";
 
 import AddProjectModal from "../modals/AddProjectModal";
 
 const actions = {
   logout,
-  getProjects
+  getProjects,
+  showAddProjectModal
 };
 
 class PushableSidebar extends Component {
@@ -46,7 +48,7 @@ class PushableSidebar extends Component {
   };
 
   render() {
-    const { auth, children } = this.props;
+    const { auth, children, showAddProjectModal } = this.props;
 
     return (
       <div>
@@ -83,7 +85,7 @@ class PushableSidebar extends Component {
                   icon="add"
                   circular
                   inverted
-                  onClick={this.show("addProjectModal")}
+                  onClick={showAddProjectModal}
                 />
               </div>
               <Menu.Menu />
@@ -113,10 +115,7 @@ class PushableSidebar extends Component {
             {children}
           </Sidebar.Pusher>
         </Sidebar.Pushable>
-        <AddProjectModal
-          open={this.state.addProjectModal}
-          close={this.close("addProjectModal")}
-        />
+        <AddProjectModal />
       </div>
     );
   }

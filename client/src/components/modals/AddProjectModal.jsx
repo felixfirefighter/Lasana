@@ -3,9 +3,11 @@ import { Button, Header, Image, Modal, Form, Label } from "semantic-ui-react";
 
 import { connect } from "react-redux";
 import { addProject } from "../../actions/projectActions";
+import { hideAddProjectModal } from "../../actions/navActions";
 
 const actions = {
-  addProject
+  addProject,
+  hideAddProjectModal
 };
 
 class AddProjectModal extends Component {
@@ -34,11 +36,16 @@ class AddProjectModal extends Component {
   }
 
   render() {
-    const { open, close, errors } = this.props;
+    const { nav, errors, hideAddProjectModal } = this.props;
     const { loading } = this.state;
 
     return (
-      <Modal open={open} onClose={close} size="tiny" centered={false}>
+      <Modal
+        open={nav.addProjectModal}
+        onClose={hideAddProjectModal}
+        size="tiny"
+        centered={false}
+      >
         <Modal.Header as="h2">New Project</Modal.Header>
         <Modal.Content>
           <Form onSubmit={this.handleSubmit}>
@@ -67,7 +74,8 @@ class AddProjectModal extends Component {
 }
 
 const mapState = state => ({
-  errors: state.errors
+  errors: state.errors,
+  nav: state.nav
 });
 
 export default connect(

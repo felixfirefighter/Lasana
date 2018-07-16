@@ -42,7 +42,7 @@ export const getProject = id => async dispatch => {
 export const addProject = data => async dispatch => {
   try {
     const res = await axios.post(`/api/projects`, data);
-    console.log(res.data);
+
     dispatch({
       type: ADD_PROJECT,
       payload: res.data

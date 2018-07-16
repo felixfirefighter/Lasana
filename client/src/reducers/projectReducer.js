@@ -12,10 +12,6 @@ const initialState = {
 };
 
 export default function(state = initialState, action) {
-  const index = state.projects.findIndex(
-    project => project._id === action.payload._id
-  );
-
   switch (action.type) {
     case GET_PROJECT:
       return {
@@ -34,24 +30,30 @@ export default function(state = initialState, action) {
         projects: [...state.projects, action.payload]
       };
     case UPDATE_PROJECT:
+      const updateProjectIndex = state.projects.findIndex(
+        project => project._id === action.payload._id
+      );
       return {
         ...state,
         project: action.payload,
         projects: [
-          ...state.projects.slice(0, index),
+          ...state.projects.slice(0, updateProjectIndex),
           {
             ...action.payload
           },
-          ...state.projects.slice(index + 1)
+          ...state.projects.slice(updateProjectIndex + 1)
         ]
       };
     case DELETE_PROJECT:
+      const deleteProjectIndex = state.projects.findIndex(
+        project => project._id === action.payload._id
+      );
       return {
         ...state,
         project: {},
         projects: [
-          ...state.projects.slice(0, index),
-          ...state.projects.slice(index + 1)
+          ...state.projects.slice(0, deleteProjectIndex),
+          ...state.projects.slice(deleteProjectIndex + 1)
         ]
       };
     default:
