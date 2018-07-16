@@ -1,6 +1,6 @@
-const bcrypt = require("C:/Users/leeyo/AppData/Local/Microsoft/TypeScript/2.9/node_modules/@types/bcryptjs");
-const jwt = require("C:/Users/leeyo/AppData/Local/Microsoft/TypeScript/2.9/node_modules/@types/jsonwebtoken");
-const express = require("C:/Users/leeyo/AppData/Local/Microsoft/TypeScript/2.9/node_modules/@types/express");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const express = require("express");
 const router = express.Router();
 
 const User = require("../models/User");
