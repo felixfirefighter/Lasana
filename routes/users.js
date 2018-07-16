@@ -1,6 +1,6 @@
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const express = require("express");
+const bcrypt = require("C:/Users/leeyo/AppData/Local/Microsoft/TypeScript/2.9/node_modules/@types/bcryptjs");
+const jwt = require("C:/Users/leeyo/AppData/Local/Microsoft/TypeScript/2.9/node_modules/@types/jsonwebtoken");
+const express = require("C:/Users/leeyo/AppData/Local/Microsoft/TypeScript/2.9/node_modules/@types/express");
 const router = express.Router();
 
 const User = require("../models/User");
@@ -47,8 +47,8 @@ router.post("/login", async (req, res) => {
     if (!isMatch)
       return res.status(400).json({ password: "Password incorrect" });
 
-    const { id } = user;
-    const payload = { id };
+    const { id, email } = user;
+    const payload = { id, email };
 
     const token = await jwt.sign(payload, keys.secretOrKey);
 
