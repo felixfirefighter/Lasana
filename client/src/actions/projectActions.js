@@ -59,3 +59,19 @@ export const addProject = data => async dispatch => {
     });
   }
 };
+
+export const updateProject = (id, data) => async dispatch => {
+  try {
+    const res = await axios.post(`/api/projects/${id}`, data);
+
+    dispatch({
+      type: UPDATE_PROJECT,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data
+    });
+  }
+};
