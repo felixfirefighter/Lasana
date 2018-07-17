@@ -3,6 +3,7 @@ import React from "react";
 import { Menu } from "semantic-ui-react";
 
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 import { getProject } from "../../actions/projectActions";
 
@@ -11,10 +12,6 @@ const actions = {
 };
 
 const NavProjectListItem = ({ projects, getProject }) => {
-  this.handleClick = id => {
-    getProject(id);
-  };
-
   return (
     <Menu.Menu>
       {projects.map(project => {
@@ -22,9 +19,10 @@ const NavProjectListItem = ({ projects, getProject }) => {
 
         return (
           <Menu.Item
+            as={Link}
             key={_id}
+            to={`/projects/${_id}`}
             style={{ textAlign: "left" }}
-            onClick={() => this.handleClick(_id)}
           >
             {name}
           </Menu.Item>

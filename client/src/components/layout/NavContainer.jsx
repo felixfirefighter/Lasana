@@ -114,7 +114,7 @@ class PushableSidebar extends Component {
                 </Dropdown>
               </Menu.Menu>
             </Menu>
-            {children}
+            <Segment basic>{children}</Segment>
           </Sidebar.Pusher>
         </Sidebar.Pushable>
         <AddProjectModal />

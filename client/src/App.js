@@ -15,6 +15,7 @@ import Login from "./components/auth/Login";
 import NotFound from "./components/common/NotFound";
 
 import Board from "./components/home/Board";
+import Project from "./components/projects/Project";
 
 // Check for token
 if (localStorage.jwtToken) {
@@ -35,7 +36,14 @@ class App extends Component {
               <Route exact path="/login" component={Login} />
 
               <NavContainer>
-                <PrivateRoute exact path="/home/board" component={Board} />
+                <Switch>
+                  <PrivateRoute exact path="/board" component={Board} />
+                  <PrivateRoute
+                    exact
+                    path="/projects/:id"
+                    component={Project}
+                  />
+                </Switch>
               </NavContainer>
 
               <Route component={NotFound} />
