@@ -33,3 +33,11 @@ body {
   max-height: 100vh;
   height: 100vh;
 }
+
+.sections {
+  display: flex;
+}
+
+.section {
+  width: 280px;
+}
