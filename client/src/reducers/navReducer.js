@@ -3,7 +3,8 @@ import {
   SHOW_ADD_PROJECT_MODAL,
   HIDE_ADD_PROJECT_MODAL,
   SHOW_UPDATE_PROJECT_MODAL,
-  HIDE_UPDATE_PROJECT_MODAL
+  HIDE_UPDATE_PROJECT_MODAL,
+  UPDATE_PROJECT
 } from "../actions/types";
 
 const initialState = {
@@ -29,6 +30,7 @@ export default function(state = initialState, action) {
         ...state,
         updateProjectModal: true
       };
+    case UPDATE_PROJECT:
     case HIDE_UPDATE_PROJECT_MODAL:
       return {
         ...state,

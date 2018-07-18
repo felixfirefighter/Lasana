@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Button, Modal, Form, Label } from "semantic-ui-react";
 
+import { withRouter } from "react-router-dom";
+
 import { connect } from "react-redux";
 import { updateProject } from "../../actions/projectActions";
 import { hideUpdateProjectModal } from "../../actions/navActions";
@@ -26,8 +28,17 @@ class EditProjectModal extends Component {
     this.setState({ loading: true });
 
     const { name, description } = this.state;
-    this.props.addProject({ name, description });
+    const { id } = this.props.match.params;
+
+    this.props.updateProject(id, { name, description });
   };
+
+  componentDidMount() {
+    this.setState({
+      name: this.props.name,
+      description: this.props.description
+    });
+  }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
@@ -36,8 +47,13 @@ class EditProjectModal extends Component {
   }
 
   render() {
-    const { nav, errors, hideUpdateProjectModal, name } = this.props;
-    const { loading } = this.state;
+    const {
+      nav,
+      errors,
+      hideUpdateProjectModal,
+      name: currentName
+    } = this.props;
+    const { loading, name, description } = this.state;
 
     return (
       <Modal
@@ -46,7 +62,7 @@ class EditProjectModal extends Component {
         size="tiny"
         centered={false}
       >
-        <Modal.Header as="h2">Edit {name}</Modal.Header>
+        <Modal.Header as="h2">Edit {currentName}</Modal.Header>
         <Modal.Content>
           <Form onSubmit={this.handleSubmit}>
             <Form.Input
@@ -55,12 +71,14 @@ class EditProjectModal extends Component {
               type="text"
               onChange={this.handleChange}
               error={errors.name != null}
+              value={name}
             />
             {errors.name != null && <Label content={errors.name} color="red" />}
             <Form.TextArea
               label="Description"
               name="description"
               onChange={this.handleChange}
+              value={description}
             />
 
             <Form.Field style={{ textAlign: "right" }}>
@@ -78,7 +96,9 @@ const mapState = state => ({
   nav: state.nav
 });
 
-export default connect(
-  mapState,
-  actions
-)(EditProjectModal);
+export default withRouter(
+  connect(
+    mapState,
+    actions
+  )(EditProjectModal)
+);

@@ -1,10 +1,19 @@
 import React, { Component } from "react";
 import { Segment, Header, Dropdown } from "semantic-ui-react";
 
+import { connect } from "react-redux";
+
+import { showUpdateProjectModal } from "../../actions/navActions";
 import EditProjectModal from "../modals/EditProjectModal";
 
+const actions = {
+  showUpdateProjectModal
+};
+
 class ProjectHeader extends Component {
-  handleClick = (e, { value }) => {};
+  handleClick = (e, { value }) => {
+    if (value === "update") this.props.showUpdateProjectModal();
+  };
 
   render() {
     const { project } = this.props;
@@ -40,4 +49,7 @@ class ProjectHeader extends Component {
   }
 }
 
-export default ProjectHeader;
+export default connect(
+  null,
+  actions
+)(ProjectHeader);
