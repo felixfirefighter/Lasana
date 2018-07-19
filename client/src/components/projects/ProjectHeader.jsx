@@ -3,16 +3,22 @@ import { Segment, Header, Dropdown } from "semantic-ui-react";
 
 import { connect } from "react-redux";
 
-import { showUpdateProjectModal } from "../../actions/navActions";
+import {
+  showUpdateProjectModal,
+  showDeleteProjectModal
+} from "../../actions/navActions";
 import EditProjectModal from "../modals/EditProjectModal";
+import DeleteProjectModal from "../modals/DeleteProjectModal";
 
 const actions = {
-  showUpdateProjectModal
+  showUpdateProjectModal,
+  showDeleteProjectModal
 };
 
 class ProjectHeader extends Component {
   handleClick = (e, { value }) => {
     if (value === "update") this.props.showUpdateProjectModal();
+    if (value === "delete") this.props.showDeleteProjectModal();
   };
 
   render() {
@@ -44,6 +50,7 @@ class ProjectHeader extends Component {
           </div>
         </Segment>
         <EditProjectModal name={project.name} />
+        <DeleteProjectModal name={project.name} />
       </div>
     );
   }

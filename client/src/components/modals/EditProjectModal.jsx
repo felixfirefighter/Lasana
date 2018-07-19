@@ -62,7 +62,7 @@ class EditProjectModal extends Component {
         size="tiny"
         centered={false}
       >
-        <Modal.Header as="h2">Edit {currentName}</Modal.Header>
+        <Modal.Header as="h2">Edit "{currentName}"</Modal.Header>
         <Modal.Content>
           <Form onSubmit={this.handleSubmit}>
             <Form.Input

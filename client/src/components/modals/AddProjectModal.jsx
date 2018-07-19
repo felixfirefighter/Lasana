@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Button, Header, Image, Modal, Form, Label } from "semantic-ui-react";
 
+import { withRouter } from "react-router-dom";
+
 import { connect } from "react-redux";
 import { addProject } from "../../actions/projectActions";
 import { hideAddProjectModal } from "../../actions/navActions";
@@ -26,7 +28,7 @@ class AddProjectModal extends Component {
     this.setState({ loading: true });
 
     const { name, description } = this.state;
-    this.props.addProject({ name, description });
+    this.props.addProject({ name, description }, this.props.history);
   };
 
   componentWillReceiveProps(nextProps) {
@@ -78,7 +80,9 @@ const mapState = state => ({
   nav: state.nav
 });
 
-export default connect(
-  mapState,
-  actions
-)(AddProjectModal);
+export default withRouter(
+  connect(
+    mapState,
+    actions
+  )(AddProjectModal)
+);

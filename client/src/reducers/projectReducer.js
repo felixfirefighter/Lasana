@@ -46,16 +46,10 @@ export default function(state = initialState, action) {
         ]
       };
     case DELETE_PROJECT:
-      const deleteProjectIndex = state.projects.findIndex(
-        project => project._id === action.payload._id
-      );
       return {
         ...state,
         project: {},
-        projects: [
-          ...state.projects.slice(0, deleteProjectIndex),
-          ...state.projects.slice(deleteProjectIndex + 1)
-        ]
+        projects: state.projects.filter(p => p._id !== action.payload)
       };
     case CLEAR_PROJECT:
       return {

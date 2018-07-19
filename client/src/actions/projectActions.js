@@ -44,7 +44,7 @@ export const getProject = id => async dispatch => {
   }
 };
 
-export const addProject = data => async dispatch => {
+export const addProject = (data, history) => async dispatch => {
   try {
     const res = await axios.post(`/api/projects`, data);
 
@@ -52,6 +52,8 @@ export const addProject = data => async dispatch => {
       type: ADD_PROJECT,
       payload: res.data
     });
+
+    history.push(`/projects/${res.data._id}`);
   } catch (err) {
     dispatch({
       type: GET_ERRORS,
@@ -66,6 +68,22 @@ export const updateProject = (id, data) => async dispatch => {
 
     dispatch({
       type: UPDATE_PROJECT,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data
+    });
+  }
+};
+
+export const deleteProject = (id, data) => async dispatch => {
+  try {
+    const res = await axios.delete(`/api/projects/${id}`, data);
+
+    dispatch({
+      type: DELETE_PROJECT,
       payload: res.data
     });
   } catch (err) {

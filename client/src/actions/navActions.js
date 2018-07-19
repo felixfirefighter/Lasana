@@ -2,7 +2,9 @@ import {
   SHOW_ADD_PROJECT_MODAL,
   HIDE_ADD_PROJECT_MODAL,
   SHOW_UPDATE_PROJECT_MODAL,
-  HIDE_UPDATE_PROJECT_MODAL
+  HIDE_UPDATE_PROJECT_MODAL,
+  SHOW_DELETE_PROJECT_MODAL,
+  HIDE_DELETE_PROJECT_MODAL
 } from "./types";
 
 export const showAddProjectModal = () => {
@@ -26,5 +28,17 @@ export const showUpdateProjectModal = () => {
 export const hideUpdateProjectModal = () => {
   return {
     type: HIDE_UPDATE_PROJECT_MODAL
+  };
+};
+
+export const showDeleteProjectModal = () => {
+  return {
+    type: SHOW_DELETE_PROJECT_MODAL
+  };
+};
+
+export const hideDeleteProjectModal = () => {
+  return {
+    type: HIDE_DELETE_PROJECT_MODAL
   };
 };

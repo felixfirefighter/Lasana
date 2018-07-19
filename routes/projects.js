@@ -96,7 +96,7 @@ router.delete(
     try {
       await Project.findByIdAndRemove(req.params.id);
 
-      return res.json({ success: true });
+      return res.json(req.params.id);
     } catch (err) {
       return res.status(400).json({ error: "Unable to delete project" });
     }
