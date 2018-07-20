@@ -1,34 +1,58 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 
-import { Header, Button, Input } from "semantic-ui-react";
+import { connect } from "react-redux";
+import { Header, Button, Input, Icon, Dropdown } from "semantic-ui-react";
+
+import Section from "./Section";
+import { addSection } from "../../actions/sectionActions";
+
+const actions = {
+  addSection
+};
 
 class Sections extends Component {
   state = {
-    addNew: false
+    addNew: false,
+    input: ""
   };
 
   handleAddClick = () => {
     this.setState({ addNew: true });
   };
 
-  handleAddBlur = e => {
-    const { value } = e.target;
+  handleChange = ({ target: { value } }) => {
+    this.setState({ input: value });
+  };
 
-    if (value.trim() === "") {
-      this.setState({ addNew: false });
-    } else {
+  handleAddBlur = async e => {
+    const { value } = e.target;
+    if (value.trim() !== "") {
       // add new section
+      const { projectId } = this.props;
+      await this.props.addSection(projectId, { name: value });
+    }
+    this.setState({ addNew: false });
+  };
+
+  handleKeyPress = async ({ key, target: { value } }) => {
+    if (key === "Enter" && value.trim() !== "") {
+      // add new section
+      const { projectId } = this.props;
+      await this.props.addSection(projectId, { name: value });
+
+      //empty the input field
+      this.setState({ input: "" });
     }
   };
 
   render() {
     const { sections } = this.props;
-    const { addNew } = this.state;
+    const { addNew, input } = this.state;
 
     return (
-      <div>
-        {sections.map(section => {
-          return <Header>{section.name}</Header>;
+      <Fragment>
+        {sections.map(({ _id, name }) => {
+          return <Section key={_id} id={_id} name={name} />;
         })}
 
         <div className="section">
@@ -36,16 +60,23 @@ class Sections extends Component {
             <Input
               autoFocus
               placeholder="New Column"
-              fluid
+              value={input}
+              onChange={this.handleChange}
               onBlur={this.handleAddBlur}
+              onKeyPress={this.handleKeyPress}
             />
           ) : (
-            <Button content="Add Column" basic onClick={this.handleAddClick} />
+            <Button basic onClick={this.handleAddClick}>
+              <Icon name="add" /> Add Column
+            </Button>
           )}
         </div>
-      </div>
+      </Fragment>
     );
   }
 }
 
-export default Sections;
+export default connect(
+  null,
+  actions
+)(Sections);

@@ -51,7 +51,7 @@ class PushableSidebar extends Component {
     const { auth, children, showAddProjectModal, project } = this.props;
 
     return (
-      <div>
+      <div className="full-height">
         <Sidebar.Pushable as={Segment}>
           <Sidebar
             as={Menu}
@@ -94,7 +94,7 @@ class PushableSidebar extends Component {
             </Menu.Item>
           </Sidebar>
 
-          <Sidebar.Pusher>
+          <Sidebar.Pusher style={{ display: "flex", flexDirection: "column" }}>
             <Menu style={{ margin: "0" }}>
               {!this.state.sidebar && (
                 <Menu.Menu>
@@ -114,7 +114,9 @@ class PushableSidebar extends Component {
                 </Dropdown>
               </Menu.Menu>
             </Menu>
-            <Segment basic>{children}</Segment>
+            <Segment basic style={{ padding: 0, flex: "1", display: "flex" }}>
+              {children}
+            </Segment>
           </Sidebar.Pusher>
         </Sidebar.Pushable>
         <AddProjectModal />

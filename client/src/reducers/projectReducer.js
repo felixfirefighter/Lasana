@@ -4,7 +4,10 @@ import {
   DELETE_PROJECT,
   GET_PROJECT,
   GET_PROJECTS,
-  CLEAR_PROJECT
+  CLEAR_PROJECT,
+  ADD_SECTION,
+  UPDATE_SECTION,
+  DELETE_SECTION
 } from "../actions/types";
 
 const initialState = {
@@ -55,6 +58,19 @@ export default function(state = initialState, action) {
       return {
         ...state,
         project: {}
+      };
+    case ADD_SECTION:
+      return {
+        ...state,
+        project: action.payload
+      };
+    case DELETE_SECTION:
+      return {
+        ...state,
+        project: {
+          ...state.project,
+          sections: state.project.sections.filter(s => s._id !== action.payload)
+        }
       };
     default:
       return state;

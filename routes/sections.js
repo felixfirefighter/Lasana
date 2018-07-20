@@ -10,9 +10,6 @@ router.put(
   "/:id",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
-    const { errors, isValid } = validateProject(req.body);
-    if (!isValid) return res.status(400).json(errors);
-
     const { id } = req.params;
     const { name } = req.body;
 
@@ -24,7 +21,7 @@ router.put(
         },
         {
           $set: {
-            "sections.$.name": name
+            "sections.$.name": name != null ? name : "Untitled Column"
           }
         },
         { new: true }
@@ -53,7 +50,7 @@ router.delete(
           $pull: { sections: { _id: id } }
         }
       );
-      return res.json({ success: true });
+      return res.json(id);
     } catch (err) {
       return res.status(400).json({ error: "Unable to delete section" });
     }

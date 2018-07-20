@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 
 import {
   Container,
@@ -8,7 +8,8 @@ import {
   Dimmer,
   Button,
   Icon,
-  Dropdown
+  Dropdown,
+  Divider
 } from "semantic-ui-react";
 
 import { connect } from "react-redux";
@@ -35,25 +36,39 @@ class Project extends Component {
   }
 
   renderContent = () => {
-    const { project } = this.props;
+    const {
+      project,
+      match: {
+        params: { id }
+      }
+    } = this.props;
 
     return Object.keys(project.project).length === 0 ? (
       <Dimmer active inverted>
         <Loader inverted>Loading</Loader>
       </Dimmer>
     ) : (
-      <div>
-        <ProjectHeader project={project.project} />
-        <div className="sections">
-          <Sections sections={project.project.sections} />
-        </div>
-      </div>
+      <Fragment>
+        <Segment basic style={{ margin: 0, padding: 0 }}>
+          <ProjectHeader project={project.project} />
+          <Divider />
+        </Segment>
+
+        <Segment basic style={{ flex: "1", overflow: "auto", margin: 0 }}>
+          <div className="sections">
+            <Sections projectId={id} sections={project.project.sections} />
+          </div>
+        </Segment>
+      </Fragment>
     );
   };
 
   render() {
     return (
-      <Container fluid className="full-height">
+      <Container
+        fluid
+        style={{ flex: "1", display: "flex", flexDirection: "column" }}
+      >
         {this.renderContent()}
       </Container>
     );
