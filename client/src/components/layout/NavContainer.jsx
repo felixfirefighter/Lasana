@@ -114,7 +114,14 @@ class PushableSidebar extends Component {
                 </Dropdown>
               </Menu.Menu>
             </Menu>
-            <Segment basic style={{ padding: 0, flex: "1", display: "flex" }}>
+            <Segment
+              basic
+              style={{
+                padding: 0,
+                flex: "1",
+                display: "flex"
+              }}
+            >
               {children}
             </Segment>
           </Sidebar.Pusher>

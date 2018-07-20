@@ -64,6 +64,11 @@ export default function(state = initialState, action) {
         ...state,
         project: action.payload
       };
+    case UPDATE_SECTION:
+      return {
+        ...state,
+        project: action.payload
+      };
     case DELETE_SECTION:
       return {
         ...state,

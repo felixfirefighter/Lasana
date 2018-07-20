@@ -51,10 +51,18 @@ class Project extends Component {
       <Fragment>
         <Segment basic style={{ margin: 0, padding: 0 }}>
           <ProjectHeader project={project.project} />
-          <Divider />
+          <Divider style={{ marginBottom: "0" }} />
         </Segment>
 
-        <Segment basic style={{ flex: "1", overflow: "auto", margin: 0 }}>
+        <Segment
+          basic
+          style={{
+            flex: "1",
+            overflow: "auto",
+            margin: 0,
+            backgroundColor: "#fdfdfd"
+          }}
+        >
           <div className="sections">
             <Sections projectId={id} sections={project.project.sections} />
           </div>

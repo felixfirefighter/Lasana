@@ -21,7 +21,7 @@ router.put(
         },
         {
           $set: {
-            "sections.$.name": name != null ? name : "Untitled Column"
+            "sections.$.name": name === "" ? "Untitled Column" : name
           }
         },
         { new: true }

@@ -13,7 +13,15 @@ const actions = {
 class Sections extends Component {
   state = {
     addNew: false,
-    input: ""
+    input: "",
+    loading: false
+  };
+
+  addNewSection = async value => {
+    const { projectId } = this.props;
+    this.setState({ loading: true });
+    await this.props.addSection(projectId, { name: value });
+    this.setState({ loading: false });
   };
 
   handleAddClick = () => {
@@ -24,12 +32,10 @@ class Sections extends Component {
     this.setState({ input: value });
   };
 
-  handleAddBlur = async e => {
-    const { value } = e.target;
+  handleAddBlur = ({ target: { value } }) => {
     if (value.trim() !== "") {
       // add new section
-      const { projectId } = this.props;
-      await this.props.addSection(projectId, { name: value });
+      this.addNewSection(value);
     }
     this.setState({ addNew: false });
   };
@@ -37,9 +43,7 @@ class Sections extends Component {
   handleKeyPress = async ({ key, target: { value } }) => {
     if (key === "Enter" && value.trim() !== "") {
       // add new section
-      const { projectId } = this.props;
-      await this.props.addSection(projectId, { name: value });
-
+      await this.addNewSection(value);
       //empty the input field
       this.setState({ input: "" });
     }
@@ -47,7 +51,7 @@ class Sections extends Component {
 
   render() {
     const { sections } = this.props;
-    const { addNew, input } = this.state;
+    const { addNew, input, loading } = this.state;
 
     return (
       <Fragment>
@@ -55,10 +59,11 @@ class Sections extends Component {
           return <Section key={_id} id={_id} name={name} />;
         })}
 
-        <div className="section">
+        <div className="section" style={{ alignSelf: "flex-start" }}>
           {addNew ? (
             <Input
               autoFocus
+              loading={loading}
               placeholder="New Column"
               value={input}
               onChange={this.handleChange}
@@ -66,9 +71,11 @@ class Sections extends Component {
               onKeyPress={this.handleKeyPress}
             />
           ) : (
-            <Button basic onClick={this.handleAddClick}>
-              <Icon name="add" /> Add Column
-            </Button>
+            <div>
+              <Button basic onClick={this.handleAddClick} style={{ border: 0 }}>
+                <Icon name="add" /> Add Column
+              </Button>
+            </div>
           )}
         </div>
       </Fragment>

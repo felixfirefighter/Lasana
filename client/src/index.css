@@ -36,12 +36,10 @@ body {
 
 .sections {
   display: flex;
-  align-items: center;
 }
 
 .section {
   min-width: 280px;
   width: 280px;
-  padding: 0 10px;
   display: flex;
 }
