@@ -69,7 +69,7 @@ router.post(
       const task = new Task({ name, description, dueDate });
       await task.save();
 
-      const project = await Project.findOneAndUpdate(
+      await Project.findOneAndUpdate(
         {
           user: req.user.id,
           "sections._id": id
@@ -78,7 +78,7 @@ router.post(
         { new: true }
       );
 
-      return res.json({ project, task });
+      return res.json({ sectionId: id, task });
     } catch (err) {
       return res.status(400).json({ error: "Unable to create new task" });
     }

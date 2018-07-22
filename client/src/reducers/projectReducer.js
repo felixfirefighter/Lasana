@@ -7,8 +7,12 @@ import {
   CLEAR_PROJECT,
   ADD_SECTION,
   UPDATE_SECTION,
-  DELETE_SECTION
+  DELETE_SECTION,
+  ADD_TASK,
+  UPDATE_TASK,
+  DELETE_TASK
 } from "../actions/types";
+import { addTask } from "../actions/taskSections";
 
 const initialState = {
   project: {},
@@ -75,6 +79,17 @@ export default function(state = initialState, action) {
         project: {
           ...state.project,
           sections: state.project.sections.filter(s => s._id !== action.payload)
+        }
+      };
+    case ADD_TASK:
+      return {
+        ...state,
+        project: {
+          ...state.project,
+          sections: state.project.sections.map(s => {
+            if (s._id !== action.payload.sectionId) return s;
+            return { ...s, [s.tasks]: [...s.tasks, action.payload.task] };
+          })
         }
       };
     default:

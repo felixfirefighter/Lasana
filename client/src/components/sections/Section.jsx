@@ -1,19 +1,30 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { Dropdown, Header, Input, Button, Card } from "semantic-ui-react";
+import {
+  Dropdown,
+  Header,
+  Input,
+  Button,
+  Card,
+  TextArea
+} from "semantic-ui-react";
 
 import { updateSection, deleteSection } from "../../actions/sectionActions";
+import { addTask } from "../../actions/taskSections";
 
 const actions = {
   updateSection,
-  deleteSection
+  deleteSection,
+  addTask
 };
 
 class Section extends Component {
   state = {
     editing: false,
     input: "",
-    loading: false
+    loading: false,
+    addNewTask: false,
+    description: ""
   };
 
   componentDidMount() {
@@ -46,8 +57,22 @@ class Section extends Component {
     }
   };
 
+  handleAddTaskClick = () => {
+    this.setState(prevState => {
+      return { addNewTask: !prevState.addNewTask };
+    });
+  };
+
+  handleDescriptionChange = (e, { value }) => {
+    this.setState({ description: value });
+  };
+
+  handleDescriptionBlur = ({ target: { value } }) => {
+    this.props.addTask(this.props.id, { value });
+  };
+
   render() {
-    const { editing, input, loading } = this.state;
+    const { editing, input, loading, addNewTask, description } = this.state;
     const { name } = this.props;
 
     return (
@@ -88,8 +113,26 @@ class Section extends Component {
           )}
         </div>
         <Card style={{ margin: 0 }}>
-          <Button icon="add" fluid size="tiny" basic />
+          <Button
+            icon="add"
+            fluid
+            size="tiny"
+            basic
+            onClick={this.handleAddTaskClick}
+          />
         </Card>
+
+        {addNewTask ? (
+          <Card>
+            <TextArea
+              style={{ padding: "10px" }}
+              name="description"
+              value={description}
+              onChange={this.handleDescriptionChange}
+              onBlur={this.handleDescriptionBlur}
+            />
+          </Card>
+        ) : null}
       </div>
     );
   }

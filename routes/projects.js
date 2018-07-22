@@ -15,6 +15,7 @@ router.get(
 
       return res.json(projects);
     } catch (err) {
+      console.log(err);
       return res.status(404).json({ noProjectFound: "No project is found" });
     }
   }
