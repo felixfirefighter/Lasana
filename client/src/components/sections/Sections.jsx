@@ -55,8 +55,8 @@ class Sections extends Component {
 
     return (
       <Fragment>
-        {sections.map(({ _id, name }) => {
-          return <Section key={_id} id={_id} name={name} />;
+        {sections.map(({ _id, name, tasks }) => {
+          return <Section key={_id} id={_id} name={name} tasks={tasks} />;
         })}
 
         <div className="section" style={{ alignSelf: "flex-start" }}>

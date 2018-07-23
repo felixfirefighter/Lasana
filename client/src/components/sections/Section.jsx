@@ -68,7 +68,7 @@ class Section extends Component {
   };
 
   handleDescriptionBlur = ({ target: { value } }) => {
-    this.props.addTask(this.props.id, { value });
+    this.props.addTask(this.props.id, { name: value });
   };
 
   render() {
@@ -82,7 +82,7 @@ class Section extends Component {
             <Input
               autoFocus
               loading={loading}
-              onBlur={this.handleOnBlur}
+              // onBlur={this.handleOnBlur}
               onChange={this.handleChange}
               onKeyPress={this.handleKeyPress}
               value={input}
