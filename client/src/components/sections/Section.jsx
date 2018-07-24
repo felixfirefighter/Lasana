@@ -11,6 +11,7 @@ import {
 
 import { updateSection, deleteSection } from "../../actions/sectionActions";
 import { addTask } from "../../actions/taskSections";
+import Tasks from "../tasks/Tasks";
 
 const actions = {
   updateSection,
@@ -73,7 +74,7 @@ class Section extends Component {
 
   render() {
     const { editing, input, loading, addNewTask, description } = this.state;
-    const { name } = this.props;
+    const { name, tasks } = this.props;
 
     return (
       <div style={{ padding: "0 10px" }}>
@@ -133,6 +134,8 @@ class Section extends Component {
             />
           </Card>
         ) : null}
+
+        <Tasks tasks={tasks} />
       </div>
     );
   }

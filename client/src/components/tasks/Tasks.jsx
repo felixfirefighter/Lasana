@@ -1,11 +1,15 @@
-import React, { Component } from "react";
+import React, { Fragment } from "react";
 
-class Tasks extends Component {
-  render() {
-    const { name } = this.props;
+import Task from "./Task";
 
-    return <h1>{name}</h1>;
-  }
-}
+const Tasks = ({ tasks }) => {
+  return (
+    <Fragment>
+      {tasks.map(({ name }) => {
+        return <Task name={name} />;
+      })}
+    </Fragment>
+  );
+};
 
 export default Tasks;
