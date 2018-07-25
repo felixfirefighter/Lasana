@@ -83,7 +83,7 @@ class Section extends Component {
             <Input
               autoFocus
               loading={loading}
-              // onBlur={this.handleOnBlur}
+              onBlur={this.handleOnBlur}
               onChange={this.handleChange}
               onKeyPress={this.handleKeyPress}
               value={input}
@@ -124,9 +124,10 @@ class Section extends Component {
         </Card>
 
         {addNewTask ? (
-          <Card>
+          <Card style={{ height: "80px" }}>
             <TextArea
-              style={{ padding: "10px" }}
+              autoFocus
+              style={{ height: "100%", padding: "10px" }}
               name="description"
               value={description}
               onChange={this.handleDescriptionChange}

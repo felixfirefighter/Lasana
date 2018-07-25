@@ -74,7 +74,11 @@ router.post(
           user: req.user.id,
           "sections._id": id
         },
-        { $push: { "sections.$.tasks": { _id: task._id } } },
+        {
+          $push: {
+            "sections.$.tasks": { $each: [task._id], $position: 0 }
+          }
+        },
         { new: true }
       );
 
