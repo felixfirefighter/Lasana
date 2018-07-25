@@ -43,3 +43,7 @@ body {
   width: 280px;
   display: flex;
 }
+
+.borderless input {
+  border: 0 !important;
+}

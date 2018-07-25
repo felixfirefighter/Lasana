@@ -5,8 +5,8 @@ import Task from "./Task";
 const Tasks = ({ tasks }) => {
   return (
     <Fragment>
-      {tasks.map(({ name }) => {
-        return <Task name={name} />;
+      {tasks.map(({ _id, name }) => {
+        return <Task name={name} key={_id} />;
       })}
     </Fragment>
   );

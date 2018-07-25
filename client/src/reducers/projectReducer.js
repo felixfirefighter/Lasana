@@ -87,8 +87,9 @@ export default function(state = initialState, action) {
         project: {
           ...state.project,
           sections: state.project.sections.map(s => {
+            console.log(s);
             if (s._id !== action.payload.sectionId) return s;
-            return { ...s, [s.tasks]: [...s.tasks, action.payload.task] };
+            return { ...s, tasks: [action.payload.task, ...s.tasks] };
           })
         }
       };

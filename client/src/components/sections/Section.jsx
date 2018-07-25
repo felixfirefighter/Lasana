@@ -69,7 +69,11 @@ class Section extends Component {
   };
 
   handleDescriptionBlur = ({ target: { value } }) => {
-    this.props.addTask(this.props.id, { name: value });
+    if (value !== "") {
+      this.props.addTask(this.props.id, { name: value });
+    }
+
+    // this.setState({ addNewTask: false, description: "" });
   };
 
   render() {
@@ -125,9 +129,12 @@ class Section extends Component {
 
         {addNewTask ? (
           <Card style={{ height: "80px" }}>
-            <TextArea
+            <Input
               autoFocus
-              style={{ height: "100%", padding: "10px" }}
+              style={{
+                padding: "10px"
+              }}
+              className="borderless"
               name="description"
               value={description}
               onChange={this.handleDescriptionChange}
