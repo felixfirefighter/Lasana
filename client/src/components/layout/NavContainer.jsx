@@ -9,8 +9,6 @@ import {
   Button
 } from "semantic-ui-react";
 
-import { Link } from "react-router-dom";
-
 import { connect } from "react-redux";
 
 import { logout } from "../../actions/authActions";

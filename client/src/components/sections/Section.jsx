@@ -1,13 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import {
-  Dropdown,
-  Header,
-  Input,
-  Button,
-  Card,
-  TextArea
-} from "semantic-ui-react";
+import { Dropdown, Header, Input, Button, Card } from "semantic-ui-react";
 
 import { updateSection, deleteSection } from "../../actions/sectionActions";
 import { addTask } from "../../actions/taskSections";
@@ -68,12 +61,23 @@ class Section extends Component {
     this.setState({ description: value });
   };
 
-  handleDescriptionBlur = ({ target: { value } }) => {
+  submitAddTask = async value => {
     if (value !== "") {
-      this.props.addTask(this.props.id, { name: value });
+      await this.props.addTask(this.props.id, { name: value });
     }
 
-    // this.setState({ addNewTask: false, description: "" });
+    this.setState({ addNewTask: false, description: "" });
+  };
+
+  handleDescriptionKeyPress = ({ key, target: { value } }) => {
+    if (key === "Enter" && value.trim() !== "") {
+      // add new section
+      this.submitAddTask(value);
+    }
+  };
+
+  handleDescriptionBlur = ({ target: { value } }) => {
+    this.submitAddTask(value);
   };
 
   render() {
@@ -132,12 +136,13 @@ class Section extends Component {
             <Input
               autoFocus
               style={{
-                padding: "10px"
+                padding: "1em"
               }}
               className="borderless"
               name="description"
               value={description}
               onChange={this.handleDescriptionChange}
+              onKeyPress={this.handleDescriptionKeyPress}
               onBlur={this.handleDescriptionBlur}
             />
           </Card>

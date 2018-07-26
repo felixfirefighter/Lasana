@@ -25,7 +25,7 @@ router.put(
           }
         },
         { new: true }
-      );
+      ).populate("sections.tasks");
 
       return res.json(project);
     } catch (err) {

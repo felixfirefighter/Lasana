@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 
 import { connect } from "react-redux";
-import { Header, Button, Input, Icon, Dropdown } from "semantic-ui-react";
+import { Button, Input, Icon } from "semantic-ui-react";
 
 import Section from "./Section";
 import { addSection } from "../../actions/sectionActions";

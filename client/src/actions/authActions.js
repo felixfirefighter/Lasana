@@ -6,7 +6,7 @@ import { GET_ERRORS, SET_CURRENT_USER } from "./types";
 
 export const register = (userData, history) => async dispatch => {
   try {
-    const res = await axios.post("/api/users/register", userData);
+    await axios.post("/api/users/register", userData);
     history.push("/login");
   } catch (err) {
     dispatch({

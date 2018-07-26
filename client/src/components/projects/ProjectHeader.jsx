@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Segment, Header, Dropdown, Divider } from "semantic-ui-react";
+import { Header, Dropdown } from "semantic-ui-react";
 
 import { connect } from "react-redux";
 

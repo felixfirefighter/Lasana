@@ -81,7 +81,7 @@ router.put(
           $set: { name, description }
         },
         { new: true }
-      );
+      ).populate("sections.tasks");
 
       return res.json(project);
     } catch (err) {
@@ -124,7 +124,7 @@ router.post(
         },
         { $push: { sections: { name } } },
         { new: true }
-      );
+      ).populate("sections.tasks");
 
       return res.json(project);
     } catch (err) {

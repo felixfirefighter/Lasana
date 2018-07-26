@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { Button, Modal, Form, Label } from "semantic-ui-react";
+import { Button, Modal } from "semantic-ui-react";
 
-import { withRouter, Redirect } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 import { connect } from "react-redux";
 import { deleteProject } from "../../actions/projectActions";

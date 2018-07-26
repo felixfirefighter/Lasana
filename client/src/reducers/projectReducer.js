@@ -12,7 +12,6 @@ import {
   UPDATE_TASK,
   DELETE_TASK
 } from "../actions/types";
-import { addTask } from "../actions/taskSections";
 
 const initialState = {
   project: {},
@@ -87,12 +86,15 @@ export default function(state = initialState, action) {
         project: {
           ...state.project,
           sections: state.project.sections.map(s => {
-            console.log(s);
             if (s._id !== action.payload.sectionId) return s;
             return { ...s, tasks: [action.payload.task, ...s.tasks] };
           })
         }
       };
+    case UPDATE_TASK:
+      return {};
+    case DELETE_TASK:
+      return {};
     default:
       return state;
   }

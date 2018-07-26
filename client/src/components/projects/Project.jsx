@@ -1,16 +1,6 @@
 import React, { Component, Fragment } from "react";
 
-import {
-  Container,
-  Segment,
-  Header,
-  Loader,
-  Dimmer,
-  Button,
-  Icon,
-  Dropdown,
-  Divider
-} from "semantic-ui-react";
+import { Container, Segment, Loader, Dimmer, Divider } from "semantic-ui-react";
 
 import { connect } from "react-redux";
 
