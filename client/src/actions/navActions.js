@@ -4,7 +4,9 @@ import {
   SHOW_UPDATE_PROJECT_MODAL,
   HIDE_UPDATE_PROJECT_MODAL,
   SHOW_DELETE_PROJECT_MODAL,
-  HIDE_DELETE_PROJECT_MODAL
+  HIDE_DELETE_PROJECT_MODAL,
+  SHOW_TASK_MODAL,
+  HIDE_TASK_MODAL
 } from "./types";
 
 export const showAddProjectModal = () => {
@@ -40,5 +42,17 @@ export const showDeleteProjectModal = () => {
 export const hideDeleteProjectModal = () => {
   return {
     type: HIDE_DELETE_PROJECT_MODAL
+  };
+};
+
+export const showTaskModal = () => {
+  return {
+    type: SHOW_TASK_MODAL
+  };
+};
+
+export const hideTaskModal = () => {
+  return {
+    type: HIDE_TASK_MODAL
   };
 };

@@ -8,6 +8,7 @@ import { getProject } from "../../actions/projectActions";
 
 import ProjectHeader from "./ProjectHeader";
 import Sections from "../sections/Sections";
+import TaskModal from "../modals/TaskModal";
 
 const actions = {
   getProject
@@ -70,6 +71,7 @@ class Project extends Component {
         style={{ flex: "1", display: "flex", flexDirection: "column" }}
       >
         {this.renderContent()}
+        <TaskModal />
       </Container>
     );
   }

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Dropdown, Header, Input, Button, Card } from "semantic-ui-react";
 
 import { updateSection, deleteSection } from "../../actions/sectionActions";
-import { addTask } from "../../actions/taskSections";
+import { addTask } from "../../actions/taskActions";
 import Tasks from "../tasks/Tasks";
 
 const actions = {

@@ -45,7 +45,6 @@ class App extends Component {
                   />
                 </Switch>
               </NavContainer>
-
               <Route component={NotFound} />
             </Switch>
           </div>

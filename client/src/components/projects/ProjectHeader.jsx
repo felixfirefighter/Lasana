@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Header, Dropdown } from "semantic-ui-react";
 
 import { connect } from "react-redux";
@@ -25,7 +25,7 @@ class ProjectHeader extends Component {
     const { project } = this.props;
 
     return (
-      <div>
+      <Fragment>
         <div
           style={{
             display: "flex",
@@ -56,7 +56,7 @@ class ProjectHeader extends Component {
 
         <EditProjectModal name={project.name} />
         <DeleteProjectModal name={project.name} />
-      </div>
+      </Fragment>
     );
   }
 }

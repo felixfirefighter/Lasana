@@ -92,7 +92,23 @@ export default function(state = initialState, action) {
         }
       };
     case UPDATE_TASK:
-      return {};
+      return {
+        ...state,
+        project: {
+          ...state.project,
+          sections: state.project.sections.map(s => {
+            const task = s.tasks.find(t => t._id === action.payload._id);
+            if (task === undefined) return s;
+            return {
+              ...s,
+              tasks: s.tasks.map(t => {
+                if (t._id !== action.payload._id) return t;
+                return action.payload;
+              })
+            };
+          })
+        }
+      };
     case DELETE_TASK:
       return {};
     default:

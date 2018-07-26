@@ -64,9 +64,8 @@ router.delete(
         _id: id
       });
 
-      return res.json({ success: true });
+      return res.json(id);
     } catch (err) {
-      console.log(err);
       return res.status(400).json({ error: "Unable to delete task" });
     }
   }

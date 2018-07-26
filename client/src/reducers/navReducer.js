@@ -7,13 +7,16 @@ import {
   SHOW_DELETE_PROJECT_MODAL,
   HIDE_DELETE_PROJECT_MODAL,
   UPDATE_PROJECT,
-  DELETE_PROJECT
+  DELETE_PROJECT,
+  SHOW_TASK_MODAL,
+  HIDE_TASK_MODAL
 } from "../actions/types";
 
 const initialState = {
   addProjectModal: false,
   updateProjectModal: false,
-  deleteProjectModal: false
+  deleteProjectModal: false,
+  taskModal: false
 };
 
 export default function(state = initialState, action) {
@@ -50,6 +53,16 @@ export default function(state = initialState, action) {
       return {
         ...state,
         deleteProjectModal: false
+      };
+    case SHOW_TASK_MODAL:
+      return {
+        ...state,
+        taskModal: true
+      };
+    case HIDE_TASK_MODAL:
+      return {
+        ...state,
+        taskModal: false
       };
     default:
       return state;
