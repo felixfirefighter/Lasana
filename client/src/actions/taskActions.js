@@ -5,7 +5,6 @@ import { ADD_TASK, UPDATE_TASK, DELETE_TASK } from "./types";
 export const addTask = (sectionId, data) => async dispatch => {
   try {
     const res = await axios.post(`/api/sections/${sectionId}/tasks`, data);
-    console.log(res.data);
     dispatch({
       type: ADD_TASK,
       payload: res.data

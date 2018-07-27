@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Modal, Form, Label, Icon } from "semantic-ui-react";
+import { Button, Modal, Input, Icon } from "semantic-ui-react";
 
 import { withRouter } from "react-router-dom";
 
@@ -14,32 +14,30 @@ const actions = {
 
 class TaskModal extends Component {
   state = {
-    name: "",
-    description: "",
-    loading: false,
-    errors: {}
+    name: ""
   };
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.tasks !== this.props.tasks) {
+      const {
+        tasks: {
+          activeTask: { name }
+        }
+      } = nextProps;
+
+      this.setState({ name });
+
+      console.log(this.props.tasks);
+    }
+  }
 
   handleChange = (e, { name, value }) => {
     this.setState({ [name]: value });
   };
 
-  handleSubmit = () => {
-    this.setState({ loading: true });
-
-    const { name, description } = this.state;
-    this.props.addProject({ name, description }, this.props.history);
-  };
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors, loading: false });
-    }
-  }
-
   render() {
-    const { nav, errors, hideTaskModal } = this.props;
-    const { loading } = this.state;
+    const { nav, hideTaskModal } = this.props;
+    const { name } = this.state;
 
     return (
       <Modal
@@ -54,25 +52,12 @@ class TaskModal extends Component {
           </Button>
         </Modal.Header>
         <Modal.Content>
-          <Form onSubmit={this.handleSubmit}>
-            <Form.Input
-              label="Project Name"
-              name="name"
-              type="text"
-              onChange={this.handleChange}
-              error={errors.name != null}
-            />
-            {errors.name != null && <Label content={errors.name} color="red" />}
-            <Form.TextArea
-              label="Description"
-              name="description"
-              onChange={this.handleChange}
-            />
-
-            <Form.Field style={{ textAlign: "right" }}>
-              <Button content="Create Project" primary loading={loading} />
-            </Form.Field>
-          </Form>
+          <Input
+            name="name"
+            type="text"
+            onChange={this.handleChange}
+            value={name}
+          />
         </Modal.Content>
       </Modal>
     );
@@ -80,7 +65,7 @@ class TaskModal extends Component {
 }
 
 const mapState = state => ({
-  errors: state.errors,
+  tasks: state.tasks,
   nav: state.nav
 });
 

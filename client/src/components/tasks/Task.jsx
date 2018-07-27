@@ -4,15 +4,15 @@ import { Card } from "semantic-ui-react";
 
 import { showTaskModal } from "../../actions/navActions";
 
-import TaskModal from "../modals/TaskModal";
-
 const actions = {
   showTaskModal
 };
 
 class Task extends Component {
   handleClick = () => {
-    this.props.showTaskModal();
+    const { showTaskModal, name } = this.props;
+
+    showTaskModal({ name });
   };
 
   render() {

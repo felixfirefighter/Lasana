@@ -34,8 +34,6 @@ class Project extends Component {
       }
     } = this.props;
 
-    console.log(project);
-
     return Object.keys(project.project).length === 0 ? (
       <Dimmer active inverted>
         <Loader inverted>Loading</Loader>

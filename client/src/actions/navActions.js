@@ -45,9 +45,10 @@ export const hideDeleteProjectModal = () => {
   };
 };
 
-export const showTaskModal = () => {
+export const showTaskModal = task => {
   return {
-    type: SHOW_TASK_MODAL
+    type: SHOW_TASK_MODAL,
+    payload: task
   };
 };
 
