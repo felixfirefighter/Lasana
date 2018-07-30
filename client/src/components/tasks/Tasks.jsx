@@ -5,8 +5,16 @@ import Task from "./Task";
 const Tasks = ({ tasks }) => {
   return (
     <Fragment>
-      {tasks.map(({ _id, name }) => {
-        return <Task name={name} key={_id} />;
+      {tasks.map(({ _id, name, description, dueDate }) => {
+        return (
+          <Task
+            _id={_id}
+            name={name}
+            description={description}
+            dueDate={dueDate}
+            key={_id}
+          />
+        );
       })}
     </Fragment>
   );

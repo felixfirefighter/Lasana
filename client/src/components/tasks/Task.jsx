@@ -10,9 +10,9 @@ const actions = {
 
 class Task extends Component {
   handleClick = () => {
-    const { showTaskModal, name } = this.props;
+    const { showTaskModal, _id, name, description, dueDate } = this.props;
 
-    showTaskModal({ name });
+    showTaskModal({ _id, name, description, dueDate });
   };
 
   render() {
