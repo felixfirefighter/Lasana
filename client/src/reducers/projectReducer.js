@@ -10,6 +10,7 @@ import {
   DELETE_SECTION,
   ADD_TASK,
   UPDATE_TASK,
+  UPDATE_TASK_STATUS,
   DELETE_TASK
 } from "../actions/types";
 
@@ -92,6 +93,7 @@ export default function(state = initialState, action) {
         }
       };
     case UPDATE_TASK:
+    case UPDATE_TASK_STATUS:
       return {
         ...state,
         project: {

@@ -15,11 +15,12 @@ import DayPickerInput from "react-day-picker/DayPickerInput";
 import "react-day-picker/lib/style.css";
 
 import { connect } from "react-redux";
-import { updateTask } from "../../actions/taskActions";
+import { updateTask, updateTaskStatus } from "../../actions/taskActions";
 import { hideTaskModal } from "../../actions/navActions";
 
 const actions = {
   updateTask,
+  updateTaskStatus,
   hideTaskModal
 };
 
@@ -28,20 +29,25 @@ class TaskModal extends Component {
     _id: "",
     name: "",
     dueDate: undefined,
-    description: ""
+    description: "",
+    isCompleted: false
   };
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.tasks !== this.props.tasks) {
       const {
         tasks: {
-          activeTask: { _id, name, description, dueDate }
+          activeTask: { _id, name, description, dueDate, isCompleted }
         }
       } = nextProps;
 
-      this.setState({ _id, name, description, dueDate });
+      this.setState({ _id, name, description, dueDate, isCompleted });
     }
   }
+
+  handleUpdateStatus = () => {
+    this.props.updateTaskStatus(this.state._id);
+  };
 
   handleClick = e => {
     console.log(e.target, e);
@@ -61,7 +67,7 @@ class TaskModal extends Component {
 
   render() {
     const { nav, hideTaskModal } = this.props;
-    const { name, dueDate, description } = this.state;
+    const { name, dueDate, description, isCompleted } = this.state;
 
     return (
       <Modal
@@ -73,9 +79,25 @@ class TaskModal extends Component {
         <Modal.Header
           style={{ display: "flex", justifyContent: "space-between" }}
         >
-          <Button basic onClick={this.handleUpdateStatus} style={{ border: 0 }}>
-            <Icon name="check" /> Mark Complete
-          </Button>
+          {isCompleted ? (
+            <Button
+              positive
+              onClick={this.handleUpdateStatus}
+              style={{ border: 0 }}
+            >
+              <Icon name="check" />
+              Completed
+            </Button>
+          ) : (
+            <Button
+              basic
+              onClick={this.handleUpdateStatus}
+              style={{ border: 0 }}
+            >
+              <Icon name="check" /> Mark Complete
+            </Button>
+          )}
+
           <div style={{ display: "flex", alignItems: "center" }}>
             <Icon
               size="small"
