@@ -110,7 +110,20 @@ export default function(state = initialState, action) {
         }
       };
     case DELETE_TASK:
-      return {};
+      return {
+        ...state,
+        project: {
+          ...state.project,
+          sections: state.project.sections.map(s => {
+            const task = s.tasks.find(t => t._id === action.payload);
+            if (task === undefined) return s;
+            return {
+              ...s,
+              tasks: s.tasks.filter(t => t._id !== action.payload)
+            };
+          })
+        }
+      };
     default:
       return state;
   }
