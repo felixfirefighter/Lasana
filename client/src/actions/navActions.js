@@ -1,3 +1,5 @@
+import axios from "axios";
+
 import {
   SHOW_ADD_PROJECT_MODAL,
   HIDE_ADD_PROJECT_MODAL,
@@ -45,11 +47,17 @@ export const hideDeleteProjectModal = () => {
   };
 };
 
-export const showTaskModal = task => {
-  return {
-    type: SHOW_TASK_MODAL,
-    payload: task
-  };
+export const showTaskModal = id => async dispatch => {
+  try {
+    const res = await axios.get(`/api/tasks/${id}`);
+
+    dispatch({
+      type: SHOW_TASK_MODAL,
+      payload: res.data
+    });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const hideTaskModal = () => {

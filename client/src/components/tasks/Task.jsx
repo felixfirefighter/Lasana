@@ -12,17 +12,9 @@ const actions = {
 
 class Task extends Component {
   handleClick = () => {
-    const {
-      showTaskModal,
-      _id,
-      name,
-      description,
-      dueDate,
-      isCompleted,
-      subtasks
-    } = this.props;
+    const { showTaskModal, _id } = this.props;
 
-    showTaskModal({ _id, name, description, dueDate, isCompleted, subtasks });
+    showTaskModal(_id);
   };
 
   handleDropdownClick = (e, { value }) => {

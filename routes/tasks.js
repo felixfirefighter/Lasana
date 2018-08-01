@@ -4,6 +4,22 @@ const passport = require("passport");
 
 const Task = require("../models/Task");
 
+router.get(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const { id } = req.params;
+
+    try {
+      const task = await Task.findById(id);
+
+      return res.json(task);
+    } catch (err) {
+      return res.json(err);
+    }
+  }
+);
+
 // update
 router.put(
   "/:id",
