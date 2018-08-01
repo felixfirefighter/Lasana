@@ -40,7 +40,7 @@ router.put(
       subtask.isCompleted = !subtask.isCompleted;
       await task.save();
 
-      return res.json(task);
+      return res.json(id);
     } catch (err) {
       console.log(err);
       return res.status(400).json({ error: "Unable to update subtask" });
@@ -61,7 +61,7 @@ router.delete(
         { new: true }
       );
 
-      return res.json(task);
+      return res.json(id);
     } catch (err) {
       return res.status(400).json({ error: "Unable to delete subtask" });
     }

@@ -66,7 +66,10 @@ class Section extends Component {
       await this.props.addTask(this.props.id, { name: value });
     }
 
-    this.setState({ addNewTask: false, description: "" });
+    this.setState(prevState => ({
+      addNewTask: !prevState.addNewTask,
+      description: ""
+    }));
   };
 
   handleDescriptionKeyPress = ({ key, target: { value } }) => {

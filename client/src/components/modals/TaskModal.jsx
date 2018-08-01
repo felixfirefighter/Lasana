@@ -6,6 +6,7 @@ import {
   Input,
   Icon,
   Divider,
+  Popup,
   TextArea
 } from "semantic-ui-react";
 
@@ -17,6 +18,8 @@ import "react-day-picker/lib/style.css";
 import { connect } from "react-redux";
 import { updateTask, updateTaskStatus } from "../../actions/taskActions";
 import { hideTaskModal } from "../../actions/navActions";
+
+import Subtasks from "../subtasks/Subtasks";
 
 const actions = {
   updateTask,
@@ -30,7 +33,9 @@ class TaskModal extends Component {
     name: "",
     dueDate: undefined,
     description: "",
-    isCompleted: false
+    isCompleted: false,
+    loading: false,
+    showSubtaskInput: false
   };
 
   componentWillReceiveProps(nextProps) {
@@ -45,12 +50,16 @@ class TaskModal extends Component {
     }
   }
 
-  handleUpdateStatus = () => {
-    this.props.updateTaskStatus(this.state._id);
+  toggleSubtaskInput = () => {
+    this.setState(prevState => ({
+      showSubtaskInput: !prevState.showSubtaskInput
+    }));
   };
 
-  handleClick = e => {
-    console.log(e.target, e);
+  handleUpdateStatus = async () => {
+    this.setState({ loading: true });
+    await this.props.updateTaskStatus(this.state._id);
+    this.setState({ loading: false });
   };
 
   handleChange = (e, { name, value }) => {
@@ -66,8 +75,21 @@ class TaskModal extends Component {
   };
 
   render() {
-    const { nav, hideTaskModal } = this.props;
-    const { name, dueDate, description, isCompleted } = this.state;
+    const {
+      nav,
+      hideTaskModal,
+      tasks: {
+        activeTask: { subtasks }
+      }
+    } = this.props;
+    const {
+      name,
+      dueDate,
+      description,
+      isCompleted,
+      loading,
+      showSubtaskInput
+    } = this.state;
 
     return (
       <Modal
@@ -84,6 +106,7 @@ class TaskModal extends Component {
               positive
               onClick={this.handleUpdateStatus}
               style={{ border: 0 }}
+              loading={loading}
             >
               <Icon name="check" />
               Completed
@@ -93,19 +116,25 @@ class TaskModal extends Component {
               basic
               onClick={this.handleUpdateStatus}
               style={{ border: 0 }}
+              loading={loading}
             >
               <Icon name="check" /> Mark Complete
             </Button>
           )}
 
           <div style={{ display: "flex", alignItems: "center" }}>
-            <Icon
-              size="small"
-              name="close"
-              className="pointer"
-              color="grey"
-              onClick={hideTaskModal}
-            />
+            <Button.Group basic size="tiny">
+              <Popup
+                trigger={
+                  <Button icon="list" onClick={this.toggleSubtaskInput} />
+                }
+                content="Add subtask"
+              />
+              <Popup
+                trigger={<Button icon="close" onClick={hideTaskModal} />}
+                content="Close"
+              />
+            </Button.Group>
           </div>
         </Modal.Header>
         <Modal.Content>
@@ -146,6 +175,12 @@ class TaskModal extends Component {
               />
             </Form.Field>
           </Form>
+
+          <Subtasks
+            showSubtaskInput={showSubtaskInput}
+            subtasks={subtasks}
+            toggleSubtaskInput={this.toggleSubtaskInput}
+          />
         </Modal.Content>
       </Modal>
     );

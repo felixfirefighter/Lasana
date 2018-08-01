@@ -18,10 +18,11 @@ class Task extends Component {
       name,
       description,
       dueDate,
-      isCompleted
+      isCompleted,
+      subtasks
     } = this.props;
 
-    showTaskModal({ _id, name, description, dueDate, isCompleted });
+    showTaskModal({ _id, name, description, dueDate, isCompleted, subtasks });
   };
 
   handleDropdownClick = (e, { value }) => {
