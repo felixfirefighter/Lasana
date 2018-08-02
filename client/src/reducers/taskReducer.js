@@ -1,7 +1,8 @@
 import {
   GET_TASK,
   UPDATE_TASK_STATUS,
-  SHOW_TASK_MODAL
+  SHOW_TASK_MODAL,
+  ADD_SUBTASK
 } from "../actions/types";
 
 const initialState = {
@@ -17,6 +18,7 @@ export default function(state = initialState, action) {
         activeTaskLoading: true
       };
     case GET_TASK:
+    case ADD_SUBTASK:
     case UPDATE_TASK_STATUS:
       return {
         ...state,

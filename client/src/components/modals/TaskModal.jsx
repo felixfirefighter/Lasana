@@ -83,6 +83,7 @@ class TaskModal extends Component {
       }
     } = this.props;
     const {
+      _id,
       name,
       dueDate,
       description,
@@ -172,6 +173,7 @@ class TaskModal extends Component {
           </Form>
 
           <Subtasks
+            taskId={_id}
             showSubtaskInput={showSubtaskInput}
             subtasks={subtasks}
             toggleSubtaskInput={this.toggleSubtaskInput}
