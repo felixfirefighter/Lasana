@@ -3,18 +3,20 @@ import { connect } from "react-redux";
 import { Card, Dropdown, Icon } from "semantic-ui-react";
 
 import { showTaskModal } from "../../actions/navActions";
-import { deleteTask } from "../../actions/taskActions";
+import { getTask, deleteTask } from "../../actions/taskActions";
 
 const actions = {
+  getTask,
   showTaskModal,
   deleteTask
 };
 
 class Task extends Component {
   handleClick = () => {
-    const { showTaskModal, _id } = this.props;
+    const { getTask, showTaskModal, _id } = this.props;
 
-    showTaskModal(_id);
+    showTaskModal();
+    getTask(_id);
   };
 
   handleDropdownClick = (e, { value }) => {

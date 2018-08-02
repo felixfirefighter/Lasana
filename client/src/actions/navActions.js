@@ -47,17 +47,10 @@ export const hideDeleteProjectModal = () => {
   };
 };
 
-export const showTaskModal = id => async dispatch => {
-  try {
-    const res = await axios.get(`/api/tasks/${id}`);
-
-    dispatch({
-      type: SHOW_TASK_MODAL,
-      payload: res.data
-    });
-  } catch (err) {
-    console.log(err);
-  }
+export const showTaskModal = () => {
+  return {
+    type: SHOW_TASK_MODAL
+  };
 };
 
 export const hideTaskModal = () => {

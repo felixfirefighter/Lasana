@@ -1,11 +1,24 @@
 import axios from "axios";
 
 import {
+  GET_TASK,
   ADD_TASK,
   UPDATE_TASK,
   UPDATE_TASK_STATUS,
   DELETE_TASK
 } from "./types";
+
+export const getTask = id => async dispatch => {
+  try {
+    const res = await axios.get(`/api/tasks/${id}`);
+    dispatch({
+      type: GET_TASK,
+      payload: res.data
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 export const addTask = (sectionId, data) => async dispatch => {
   try {

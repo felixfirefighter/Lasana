@@ -1,13 +1,14 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import {
   Button,
   Modal,
   Form,
   Input,
   Icon,
-  Divider,
   Popup,
-  TextArea
+  TextArea,
+  Loader,
+  Dimmer
 } from "semantic-ui-react";
 
 import { withRouter } from "react-router-dom";
@@ -74,12 +75,11 @@ class TaskModal extends Component {
     this.props.updateTask(this.state._id, { [name]: this.state[name] });
   };
 
-  render() {
+  renderContent = () => {
     const {
-      nav,
-      hideTaskModal,
       tasks: {
-        activeTask: { subtasks }
+        activeTask: { subtasks },
+        activeTaskLoading
       }
     } = this.props;
     const {
@@ -91,13 +91,8 @@ class TaskModal extends Component {
       showSubtaskInput
     } = this.state;
 
-    return (
-      <Modal
-        open={nav.taskModal}
-        onClose={hideTaskModal}
-        size="tiny"
-        centered={false}
-      >
+    return !activeTaskLoading ? (
+      <Fragment>
         <Modal.Header
           style={{ display: "flex", justifyContent: "space-between" }}
         >
@@ -182,6 +177,25 @@ class TaskModal extends Component {
             toggleSubtaskInput={this.toggleSubtaskInput}
           />
         </Modal.Content>
+      </Fragment>
+    ) : (
+      <Dimmer inverted active style={{ height: "25rem" }}>
+        <Loader />
+      </Dimmer>
+    );
+  };
+
+  render() {
+    const { nav, hideTaskModal } = this.props;
+
+    return (
+      <Modal
+        open={nav.taskModal}
+        onClose={hideTaskModal}
+        size="tiny"
+        centered={false}
+      >
+        {this.renderContent()}
       </Modal>
     );
   }
