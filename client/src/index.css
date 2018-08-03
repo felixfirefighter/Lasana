@@ -48,3 +48,28 @@ body {
   border: 0 !important;
   padding: 0 !important;
 }
+
+.subtask {
+  cursor: pointer;
+  display: flex !important;
+  align-items: center;
+}
+
+.subtask:hover {
+  background-color: #f5f5f5;
+}
+
+.subtask-input {
+  flex-grow: 1;
+}
+
+.complete-icon {
+  cursor: pointer;
+  transition: 0.5s all;
+  margin-right: 10px !important;
+}
+
+.complete-icon:hover {
+  color: #21ba45;
+  box-shadow: 0 0 0 0.1em #21ba45 inset !important;
+}
