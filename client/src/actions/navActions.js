@@ -1,5 +1,3 @@
-import axios from "axios";
-
 import {
   SHOW_ADD_PROJECT_MODAL,
   HIDE_ADD_PROJECT_MODAL,

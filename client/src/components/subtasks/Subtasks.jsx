@@ -52,13 +52,20 @@ class Subtasks extends Component {
     return (
       <List relaxed celled verticalAlign="middle">
         {subtasks &&
-          subtasks.map(({ name }) => {
-            return <Subtask name={name} />;
+          subtasks.map(({ _id, name, isCompleted }) => {
+            return (
+              <Subtask
+                name={name}
+                _id={_id}
+                key={_id}
+                isCompleted={isCompleted}
+              />
+            );
           })}
         {showSubtaskInput ? (
           <Input
             autoFocus
-            size="tiny"
+            size="mini"
             fluid
             onBlur={this.handleBlur}
             onKeyPress={this.handleKeyPress}

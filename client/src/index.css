@@ -73,3 +73,8 @@ body {
   color: #21ba45;
   box-shadow: 0 0 0 0.1em #21ba45 inset !important;
 }
+
+.complete-icon.completed {
+  background-color: #21ba45;
+  color: #fff;
+}
