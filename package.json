@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Keep track of your task",
   "main": "index.js",
+  "engines": {
+    "node": "10.5.0",
+    "npm": "6.1.0"
+  },
   "scripts": {
     "start": "node index.js",
     "server": "nodemon index.js",
