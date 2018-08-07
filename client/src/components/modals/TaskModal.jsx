@@ -12,8 +12,9 @@ import {
 } from "semantic-ui-react";
 
 import { withRouter } from "react-router-dom";
-
+import moment from "moment";
 import DayPickerInput from "react-day-picker/DayPickerInput";
+import { formatDate } from "react-day-picker/moment";
 import "react-day-picker/lib/style.css";
 
 import { connect } from "react-redux";
@@ -153,8 +154,9 @@ class TaskModal extends Component {
             <Form.Field>
               <label>Due Date</label>
               <DayPickerInput
+                formatDate={formatDate}
                 placeholder="Due Date"
-                value={dueDate}
+                value={moment(dueDate).format("MM/DD/YYYY")}
                 onDayChange={this.handleDayChange}
               />
             </Form.Field>

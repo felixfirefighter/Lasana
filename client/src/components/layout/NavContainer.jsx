@@ -26,7 +26,7 @@ const actions = {
 
 class PushableSidebar extends Component {
   state = {
-    sidebar: true
+    sidebar: false
   };
 
   componentDidMount() {

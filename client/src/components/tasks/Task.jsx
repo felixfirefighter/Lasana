@@ -33,7 +33,10 @@ class Task extends Component {
     return (
       <Fragment>
         <Card
-          style={{ ...{ height: "80px", color: "#000" }, ...style }}
+          style={{
+            ...{ height: "80px", color: "#000", boxShadow: "none" },
+            ...style
+          }}
           onClick={this.handleClick}
         >
           <Card.Content>

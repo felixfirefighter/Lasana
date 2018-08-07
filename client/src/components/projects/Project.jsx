@@ -51,7 +51,7 @@ class Project extends Component {
             flex: "1",
             overflow: "auto",
             margin: 0,
-            backgroundColor: "#fdfdfd"
+            backgroundColor: "#fafafa"
           }}
         >
           <div className="sections">

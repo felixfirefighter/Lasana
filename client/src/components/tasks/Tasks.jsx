@@ -1,16 +1,16 @@
 import React, { Fragment } from "react";
-
+import { Card } from "semantic-ui-react";
 import Task from "./Task";
 
 const Tasks = ({ tasks }) => {
   return (
-    <Fragment>
+    <div style={{ maxHeight: "75vh", overflowY: "auto", overflowX: "hidden" }}>
       {tasks.map(({ _id, name, isCompleted }) => {
         return (
           <Task _id={_id} name={name} isCompleted={isCompleted} key={_id} />
         );
       })}
-    </Fragment>
+    </div>
   );
 };
 

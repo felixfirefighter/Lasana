@@ -124,7 +124,7 @@ class Section extends Component {
             </Fragment>
           )}
         </div>
-        <Card style={{ margin: 0 }}>
+        <Card style={{ marginBottom: "10px" }}>
           <Button
             icon="add"
             fluid
