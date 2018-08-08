@@ -34,6 +34,11 @@ body {
   height: 100vh;
 }
 
+.segment.auth-segment {
+  width: 500px;
+  padding: 4rem;
+}
+
 .sections {
   display: flex;
 }
@@ -77,4 +82,11 @@ body {
 .complete-icon.completed {
   background-color: #21ba45;
   color: #fff;
+}
+
+@media (max-width: 768px) {
+  .segment.auth-segment {
+    width: 90vw;
+    padding: 2rem;
+  }
 }

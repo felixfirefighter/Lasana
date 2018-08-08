@@ -41,7 +41,7 @@ class Register extends Component {
           <Header as="h1" inverted textAlign="center">
             Lasana
           </Header>
-          <Segment style={{ width: "500px", padding: "4rem" }}>
+          <Segment className="auth-segment">
             <Header as="h2" textAlign="center" color="grey">
               Sign Up
             </Header>
