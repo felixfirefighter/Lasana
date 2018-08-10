@@ -4,7 +4,13 @@ import Task from "./Task";
 
 const Tasks = ({ tasks }) => {
   return (
-    <div style={{ maxHeight: "75vh", overflowY: "auto", overflowX: "hidden" }}>
+    <div
+      style={{
+        maxHeight: "calc(100vh - 250px)",
+        overflowY: "auto",
+        overflowX: "hidden"
+      }}
+    >
       {tasks.map(({ _id, name, isCompleted }) => {
         return (
           <Task _id={_id} name={name} isCompleted={isCompleted} key={_id} />

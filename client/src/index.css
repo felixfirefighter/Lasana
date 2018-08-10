@@ -17,6 +17,22 @@ body {
   background-color: rgb(27, 28, 29);
 }
 
+.text-small {
+  font-size: 90%;
+}
+
+.button-text {
+  cursor: pointer;
+  color: #767676;
+  display: inline-block;
+  font-size: 90%;
+  margin-bottom: 10px;
+}
+
+.button-text:hover {
+  text-decoration: underline;
+}
+
 .center {
   display: flex;
   justify-content: center;

@@ -1,15 +1,32 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Container, Card } from "semantic-ui-react";
+import { Container, Card, Header, Button } from "semantic-ui-react";
 
 import { connect } from "react-redux";
 
+import { showAddProjectModal } from "../../actions/navActions";
+
+const actions = {
+  showAddProjectModal
+};
+
 class Board extends Component {
   render() {
-    const { project } = this.props;
+    const { project, showAddProjectModal } = this.props;
 
     return (
       <Container fluid className="full-height" style={{ padding: "25px" }}>
+        {project && project.projects.length === 0 ? (
+          <div style={{ textAlign: "center" }}>
+            <Header as="h1">You don't have any project.</Header>
+            <Button
+              content="Add One Now"
+              primary
+              onClick={showAddProjectModal}
+            />
+          </div>
+        ) : null}
+
         <Card.Group>
           {project &&
             project.projects.map(project => {
@@ -32,4 +49,7 @@ const mapState = state => ({
   project: state.project
 });
 
-export default connect(mapState)(Board);
+export default connect(
+  mapState,
+  actions
+)(Board);

@@ -1,6 +1,14 @@
 import React, { Component, Fragment } from "react";
 
-import { Container, Segment, Loader, Dimmer, Divider } from "semantic-ui-react";
+import {
+  Container,
+  Segment,
+  Loader,
+  Dimmer,
+  Divider,
+  Sidebar,
+  Card
+} from "semantic-ui-react";
 
 import { connect } from "react-redux";
 
@@ -15,6 +23,10 @@ const actions = {
 };
 
 class Project extends Component {
+  state = {
+    visible: false
+  };
+
   componentDidMount() {
     const { id } = this.props.match.params;
     this.props.getProject(id);
@@ -26,6 +38,10 @@ class Project extends Component {
     }
   }
 
+  handleClick = () => {
+    this.setState(prev => ({ visible: !prev.visible }));
+  };
+
   renderContent = () => {
     const {
       project,
@@ -33,6 +49,8 @@ class Project extends Component {
         params: { id }
       }
     } = this.props;
+
+    const { visible } = this.state;
 
     return Object.keys(project.project).length === 0 ? (
       <Dimmer active inverted>
@@ -54,9 +72,34 @@ class Project extends Component {
             backgroundColor: "#fafafa"
           }}
         >
-          <div className="sections">
-            <Sections projectId={id} sections={project.project.sections} />
-          </div>
+          <Sidebar.Pushable>
+            <Sidebar
+              animation="push"
+              icon="labeled"
+              inverted
+              vertical
+              visible={visible}
+              width="wide"
+              style={{ paddingRight: "14px" }}
+            >
+              <Card fluid>
+                <Card.Content>
+                  <p className="text-small">Description</p>
+                  <p>{project.project.description}</p>
+                </Card.Content>
+              </Card>
+            </Sidebar>
+            <Sidebar.Pusher style={{ marginLeft: "2rem" }}>
+              <a className="button-text" onClick={this.handleClick}>
+                {visible
+                  ? "Hide Project Description"
+                  : "Show Project Description"}
+              </a>
+              <div className="sections">
+                <Sections projectId={id} sections={project.project.sections} />
+              </div>
+            </Sidebar.Pusher>
+          </Sidebar.Pushable>
         </Segment>
       </Fragment>
     );
