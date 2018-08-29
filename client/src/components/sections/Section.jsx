@@ -1,10 +1,10 @@
-import React, { Component, Fragment } from "react";
-import { connect } from "react-redux";
-import { Dropdown, Header, Input, Button, Card } from "semantic-ui-react";
+import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
+import { Dropdown, Header, Input, Button, Card } from 'semantic-ui-react';
 
-import { updateSection, deleteSection } from "../../actions/sectionActions";
-import { addTask } from "../../actions/taskActions";
-import Tasks from "../tasks/Tasks";
+import { updateSection, deleteSection } from '../../actions/sectionActions';
+import { addTask } from '../../actions/taskActions';
+import Tasks from '../tasks/Tasks';
 
 const actions = {
   updateSection,
@@ -15,10 +15,10 @@ const actions = {
 class Section extends Component {
   state = {
     editing: false,
-    input: "",
+    input: '',
     loading: false,
     addNewTask: false,
-    description: ""
+    description: ''
   };
 
   componentDidMount() {
@@ -26,8 +26,8 @@ class Section extends Component {
   }
 
   handleClick = (e, { value }) => {
-    if (value === "update") this.setState({ editing: true });
-    if (value === "delete") this.props.deleteSection(this.props.id);
+    if (value === 'update') this.setState({ editing: true });
+    if (value === 'delete') this.props.deleteSection(this.props.id);
   };
 
   handleChange = ({ target: { value } }) => {
@@ -45,7 +45,7 @@ class Section extends Component {
   };
 
   handleKeyPress = async ({ key, target: { value } }) => {
-    if (key === "Enter" && value.trim() !== "") {
+    if (key === 'Enter' && value.trim() !== '') {
       // add new section
       this.updateSection(value);
     }
@@ -62,18 +62,18 @@ class Section extends Component {
   };
 
   submitAddTask = async value => {
-    if (value !== "") {
+    if (value !== '') {
       await this.props.addTask(this.props.id, { name: value });
     }
 
     this.setState(prevState => ({
       addNewTask: !prevState.addNewTask,
-      description: ""
+      description: ''
     }));
   };
 
   handleDescriptionKeyPress = ({ key, target: { value } }) => {
-    if (key === "Enter" && value.trim() !== "") {
+    if (key === 'Enter' && value.trim() !== '') {
       // add new section
       this.submitAddTask(value);
     }
@@ -85,11 +85,18 @@ class Section extends Component {
 
   render() {
     const { editing, input, loading, addNewTask, description } = this.state;
-    const { name, tasks } = this.props;
+    const {
+      name,
+      tasks,
+      selectedTaskId,
+      changeColor,
+      changedTasks,
+      sectionCount
+    } = this.props;
 
     return (
-      <div style={{ padding: "0 10px" }}>
-        <div className="section" style={{ padding: "10px 0" }}>
+      <div style={{ padding: '0 10px' }}>
+        <div className="section" style={{ padding: '10px 0' }}>
           {editing ? (
             <Input
               autoFocus
@@ -105,7 +112,7 @@ class Section extends Component {
                 {name}
               </Header>
               <Dropdown
-                style={{ color: "grey", padding: "0 2px" }}
+                style={{ color: 'grey', padding: '0 2px' }}
                 icon="angle down"
               >
                 <Dropdown.Menu>
@@ -124,7 +131,7 @@ class Section extends Component {
             </Fragment>
           )}
         </div>
-        <Card style={{ marginBottom: "10px" }}>
+        <Card style={{ marginBottom: '10px' }}>
           <Button
             icon="add"
             fluid
@@ -135,11 +142,11 @@ class Section extends Component {
         </Card>
 
         {addNewTask ? (
-          <Card style={{ height: "80px" }}>
+          <Card style={{ height: '80px' }}>
             <Input
               autoFocus
               style={{
-                padding: "1em"
+                padding: '1em'
               }}
               className="borderless"
               name="description"
@@ -151,7 +158,14 @@ class Section extends Component {
           </Card>
         ) : null}
 
-        <Tasks tasks={tasks} />
+        <Tasks
+          tasks={tasks}
+          selectTask={this.props.selectTask}
+          selectedTaskId={selectedTaskId}
+          changeColor={changeColor}
+          changedTasks={changedTasks}
+          sectionCount={sectionCount}
+        />
       </div>
     );
   }

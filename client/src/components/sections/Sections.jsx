@@ -1,10 +1,10 @@
-import React, { Component, Fragment } from "react";
+import React, { Component, Fragment } from 'react';
 
-import { connect } from "react-redux";
-import { Button, Input, Icon } from "semantic-ui-react";
+import { connect } from 'react-redux';
+import { Button, Input, Icon } from 'semantic-ui-react';
 
-import Section from "./Section";
-import { addSection } from "../../actions/sectionActions";
+import Section from './Section';
+import { addSection } from '../../actions/sectionActions';
 
 const actions = {
   addSection
@@ -13,8 +13,10 @@ const actions = {
 class Sections extends Component {
   state = {
     addNew: false,
-    input: "",
-    loading: false
+    input: '',
+    loading: false,
+    selectedTaskId: null,
+    changedTasks: []
   };
 
   addNewSection = async value => {
@@ -33,7 +35,7 @@ class Sections extends Component {
   };
 
   handleAddBlur = ({ target: { value } }) => {
-    if (value.trim() !== "") {
+    if (value.trim() !== '') {
       // add new section
       this.addNewSection(value);
     }
@@ -41,25 +43,49 @@ class Sections extends Component {
   };
 
   handleKeyPress = async ({ key, target: { value } }) => {
-    if (key === "Enter" && value.trim() !== "") {
+    if (key === 'Enter' && value.trim() !== '') {
       // add new section
       await this.addNewSection(value);
       //empty the input field
-      this.setState({ input: "" });
+      this.setState({ input: '' });
+    }
+  };
+
+  selectTask = _id => {
+    this.setState({ selectedTaskId: _id });
+  };
+
+  changeColor = () => {
+    if (this.state.changedTasks.indexOf(this.state.selectedTaskId) === -1) {
+      this.setState({
+        changedTasks: [...this.state.changedTasks, this.state.selectedTaskId]
+      });
     }
   };
 
   render() {
     const { sections } = this.props;
-    const { addNew, input, loading } = this.state;
+    const { addNew, input, loading, selectedTaskId, changedTasks } = this.state;
 
     return (
       <Fragment>
         {sections.map(({ _id, name, tasks }) => {
-          return <Section key={_id} id={_id} name={name} tasks={tasks} />;
+          return (
+            <Section
+              key={_id}
+              id={_id}
+              name={name}
+              tasks={tasks}
+              selectTask={this.selectTask}
+              selectedTaskId={selectedTaskId}
+              changedTasks={changedTasks}
+              changeColor={this.changeColor}
+              sectionCount={sections.length}
+            />
+          );
         })}
 
-        <div className="section" style={{ alignSelf: "flex-start" }}>
+        <div className="section" style={{ alignSelf: 'flex-start' }}>
           {addNew ? (
             <Input
               autoFocus

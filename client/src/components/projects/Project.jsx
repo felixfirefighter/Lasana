@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component, Fragment } from 'react';
 
 import {
   Container,
@@ -8,15 +8,15 @@ import {
   Divider,
   Sidebar,
   Card
-} from "semantic-ui-react";
+} from 'semantic-ui-react';
 
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import { getProject } from "../../actions/projectActions";
+import { getProject } from '../../actions/projectActions';
 
-import ProjectHeader from "./ProjectHeader";
-import Sections from "../sections/Sections";
-import TaskModal from "../modals/TaskModal";
+import ProjectHeader from './ProjectHeader';
+import Sections from '../sections/Sections';
+import TaskModal from '../modals/TaskModal';
 
 const actions = {
   getProject
@@ -60,27 +60,25 @@ class Project extends Component {
       <Fragment>
         <Segment basic style={{ margin: 0, padding: 0 }}>
           <ProjectHeader project={project.project} />
-          <Divider style={{ marginBottom: "0" }} />
+          <Divider style={{ marginBottom: '0' }} />
         </Segment>
 
         <Segment
           basic
           style={{
-            flex: "1",
-            overflow: "auto",
+            flex: '1',
+            overflow: 'auto',
             margin: 0,
-            backgroundColor: "#fafafa"
+            backgroundColor: '#fafafa'
           }}
         >
           <Sidebar.Pushable>
             <Sidebar
               animation="push"
               icon="labeled"
-              inverted
-              vertical
               visible={visible}
               width="wide"
-              style={{ paddingRight: "14px" }}
+              style={{ paddingRight: '14px' }}
             >
               <Card fluid>
                 <Card.Content>
@@ -89,11 +87,11 @@ class Project extends Component {
                 </Card.Content>
               </Card>
             </Sidebar>
-            <Sidebar.Pusher style={{ marginLeft: "2rem" }}>
+            <Sidebar.Pusher style={{ marginLeft: '2rem' }}>
               <a className="button-text" onClick={this.handleClick}>
                 {visible
-                  ? "Hide Project Description"
-                  : "Show Project Description"}
+                  ? 'Hide Project Description'
+                  : 'Show Project Description'}
               </a>
               <div className="sections">
                 <Sections projectId={id} sections={project.project.sections} />
@@ -109,7 +107,7 @@ class Project extends Component {
     return (
       <Container
         fluid
-        style={{ flex: "1", display: "flex", flexDirection: "column" }}
+        style={{ flex: '1', display: 'flex', flexDirection: 'column' }}
       >
         {this.renderContent()}
         <TaskModal />
