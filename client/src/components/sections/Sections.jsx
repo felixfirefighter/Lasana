@@ -56,7 +56,7 @@ class Sections extends Component {
   };
 
   changeColor = () => {
-    if (this.state.changedTasks.indexOf(this.state.selectedTaskId) === -1) {
+    if (this.state.changedTasks.indexOf(this.state.selectedTaskId) === -1 && this.state.selectedTaskId != null) {
       this.setState({
         changedTasks: [...this.state.changedTasks, this.state.selectedTaskId]
       });
